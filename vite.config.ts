@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: "/ai-article-summarizer-frontend/",
+  base: "/ai-article-summarizer/",
 })
