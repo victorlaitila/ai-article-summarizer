@@ -13,7 +13,7 @@ const handleApiResponse = async <T>(response: Response): Promise<T> => {
   
 // Fetch from live API
 export const fetchArticle = async (payload: SummarizePayload): Promise<ArticleFetchResult> => {
-  const response = await fetch(`${API_URL}/summarize-text`, {
+  const response = await fetch(`${API_URL}/summarize/text`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -28,7 +28,7 @@ export const fetchFileSummary = async (file: File, summaryMode: SummaryMode): Pr
   formData.append("file", file);
   formData.append("mode", summaryMode);
 
-  const response = await fetch(`${API_URL}/summarize-file`, {
+  const response = await fetch(`${API_URL}/summarize/file`, {
     method: "POST",
     body: formData,
   });
