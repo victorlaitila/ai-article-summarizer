@@ -1,22 +1,42 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 export function useSpeechSynthesis() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [activeText, setActiveText] = useState<string | null>(null);
+  const voicesRef = useRef<SpeechSynthesisVoice[] | null>(null);
 
-  const speak = useCallback((text: string, lang = "en-US") => {
+  useEffect(() => {
+    const loadVoices = () => {
+      voicesRef.current = window.speechSynthesis.getVoices() || [];
+    };
+
+    loadVoices();
+    window.addEventListener("beforeunload", stopTTS);
+
+    return () => {
+      window.removeEventListener("beforeunload", stopTTS);
+    };
+  }, []);
+
+  const startTTS = useCallback((text: string, lang = "en-US") => {
     if (!text.trim()) {
       return;
     }
 
+    setIsSpeaking(true);
+    setActiveText(text);
+
+    // Stop any current speech and create a new utterance
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
 
-    utterance.onstart = () => {
-      setIsSpeaking(true);
-      setActiveText(text);
-    };
+    const voices = voicesRef.current || window.speechSynthesis.getVoices() || [];
+    const defaultVoice = voices.find(v => v.name === "Google US English") || voices[0];
+    if (defaultVoice) {
+      utterance.voice = defaultVoice;
+    }
+
     utterance.onend = () => {
       setIsSpeaking(false);
       setActiveText(null);
@@ -29,17 +49,11 @@ export function useSpeechSynthesis() {
     window.speechSynthesis.speak(utterance);
   }, []);
 
-  const stop = useCallback(() => {
+  const stopTTS = useCallback(() => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
     setActiveText(null);
   }, []);
 
-  useEffect(() => {
-    return () => {
-      window.speechSynthesis.cancel();
-    };
-  }, []);
-
-  return { isSpeaking, activeText, speak, stop };
+  return { isSpeaking, activeText, startTTS, stopTTS };
 }

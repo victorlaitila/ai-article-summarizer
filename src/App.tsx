@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSpeechSynthesis } from "./hooks/useSpeechSynthesis";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/Card";
 import { Toaster, toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -32,6 +33,7 @@ export default function App() {
   const { t } = useTranslation();
   const { language, changeLanguage } = useLanguage();
   const { handleGenerate } = useContentHandler(summaryMode);
+  const { stopTTS } = useSpeechSynthesis();
 
   const hasValidInput =
     (sourceType === "url" && !!url.trim()) ||
@@ -87,6 +89,8 @@ export default function App() {
     const inputValue = sourceHandlers[sourceType].getInput();
     const result = await handleGenerate(sourceType, inputValue, file);
     if (result?.summary && result.article_text) {
+      // Stop any ongoing TTS when a new summary/article has been generated
+      stopTTS();
       sourceHandlers[sourceType].clearOtherSources();
       setSummary(result.summary);
       setArticle(result.article_text);
@@ -96,7 +100,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-background via-accent/20 to-background">
+    <div className="bg-linear-to-br from-background via-accent/20 to-background">
       <Toaster
         position="top-right"
         richColors
@@ -116,7 +120,7 @@ export default function App() {
         <div className="space-y-8">
 
           {/* Input Section */}
-          <Card className="shadow-xl border bg-gradient-to-br from-card to-accent/10">
+          <Card className="shadow-xl border bg-linear-to-br from-card to-accent/10">
             <CardHeader>
               <p className="font-medium text-sm">{t("description")}</p>
             </CardHeader>
@@ -136,7 +140,7 @@ export default function App() {
 
           {/* Output Section */}
           {summary ? (
-            <Card className="shadow-xl bg-gradient-to-br from-card to-purple-50/30">
+            <Card className="shadow-xl bg-linear-to-br from-card to-purple-50/30">
               <CardHeader>
                 <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5">
                   <CardTitle className="text-2xl font-medium">{t("generatedSummary")}</CardTitle>

@@ -7,14 +7,14 @@ interface TextToSpeechButtonProps {
 }
 
 export default function TextToSpeechButton({ text, lang = "en-US" }: TextToSpeechButtonProps) {
-  const { isSpeaking, activeText, speak, stop } = useSpeechSynthesis();
+  const { isSpeaking, activeText, startTTS, stopTTS } = useSpeechSynthesis();
   const isThisSpeaking = isSpeaking && activeText === text;
 
   const handleClick = () => {
     if (isThisSpeaking) {
-      stop();
+      stopTTS();
     } else {
-      speak(text, lang);
+      startTTS(text, lang);
     }
   };
 
@@ -25,7 +25,7 @@ export default function TextToSpeechButton({ text, lang = "en-US" }: TextToSpeec
   return (
     <button
       onClick={handleClick}
-      className={`cursor-pointer relative top-[3px] left-2 rounded-full shadow-sm
+      className={`cursor-pointer relative top-0.75 left-2 rounded-full shadow-sm
         ${isThisSpeaking
           ? "bg-red-100 hover:bg-red-200 text-red-600"
           : "bg-indigo-100 hover:bg-indigo-200 text-indigo-700"
