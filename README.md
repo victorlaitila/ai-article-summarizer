@@ -3,10 +3,10 @@
 This is the React + Vite frontend for the AI Article Summarizer project.
 It provides a user interface to summarize articles using the backend API.
 
-Backend repository can be found [here](https://github.com/victorlaitila/ai-article-summarizer-backend)
+Backend repository can be found [here](https://github.com/victorlaitila/ai-article-summarizer-backend/)
 
 ## Live Demo
-The app is live here: [AI Article Summarizer](https://victorlaitila.github.io/ai-article-summarizer-frontend/)
+The app is live here: [AI Article Summarizer](https://victorlaitila.github.io/ai-article-summarizer/)
 
 NOTE: the demo uses a mock server with static data and does not call the actual backend API in order to avoid deployment costs.
 
@@ -30,8 +30,8 @@ NOTE: the demo uses a mock server with static data and does not call the actual 
 Clone the repository:
 
 ```bash
-git clone https://github.com/victorlaitila/ai-article-summarizer-frontend.git
-cd ai-article-summarizer-frontend
+git clone https://github.com/victorlaitila/ai-article-summarizer.git
+cd ai-article-summarizer
 ```
 
 Install dependencies:
