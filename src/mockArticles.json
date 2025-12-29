@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "article_text": "Breakthrough in Solar Panel Technology Promises 30% More Efficiency\n\nResearchers at the University of Helsinki have announced a major advancement in solar panel technology that could significantly increase energy efficiency.\n\nThe new panels use a hybrid material combining perovskite and silicon, allowing them to capture a wider range of light wavelengths. Early tests show an energy conversion rate nearly 30% higher than current panels.\n\nExperts say this could make solar energy more affordable and accessible worldwide.",
+    "summaries": {
+      "default": "Researchers in Helsinki developed hybrid solar panels using perovskite and silicon that boost efficiency by around 30%, making solar power cheaper and more accessible.",
+      "bullets": "• Researchers at the University of Helsinki made hybrid solar panels.\n• Panels use perovskite and silicon to capture more light.\n• Energy conversion is nearly 30% higher than current panels.\n• Could make solar energy more affordable and accessible globally.",
+      "simple": "Helsinki researchers created new solar panels that are 30% more efficient using hybrid materials."
+    }
+  },
+  {
+    "id": 2,
+    "article_text": "AI Tool Helps Doctors Detect Early Signs of Alzheimer's\n\nA new AI-based diagnostic tool developed by a Finnish startup can detect early signs of Alzheimer's disease years before symptoms appear.\n\nThe system analyzes MRI scans and identifies subtle patterns in brain structure that are often invisible to the human eye. According to the research team, early diagnosis could allow for more effective treatments and improved patient outcomes.\n\nThe tool is currently undergoing clinical trials across several European hospitals.",
+    "summaries": {
+      "default": "A Finnish startup built an AI tool that spots early signs of Alzheimer's from MRI scans years before symptoms, potentially improving early diagnosis and treatment.",
+      "bullets": "• Finnish startup develops AI diagnostic tool.\n• Detects early signs of Alzheimer's from MRI scans.\n• Can diagnose years before symptoms appear.\n• Supports early treatment and better patient outcomes.",
+      "simple": "A Finnish AI tool can detect early Alzheimer's from MRI scans before symptoms show."
+    }
+  },
+  {
+    "id": 3,
+    "article_text": "Europe's Largest Offshore Wind Farm Begins Operations\n\nThe North Sea's largest offshore wind farm has officially begun producing electricity. The Hornsea Three project, located off the UK coast, can power over two million homes.\n\nIt consists of 231 turbines and is expected to reduce carbon emissions by more than five million tons annually. The project represents a major step toward Europe's renewable energy targets.\n\nOfficials say the farm will provide stable green energy for decades while creating new jobs in the region.",
+    "summaries": {
+      "default": "The Hornsea Three wind farm off the UK coast has started operations, powering two million homes and cutting five million tons of carbon emissions each year.",
+      "bullets": "• Hornsea Three, North Sea's largest offshore wind farm, begins operations.\n• 231 turbines can power over 2 million homes.\n• Expected to reduce carbon emissions by 5 million tons annually.\n• Provides green energy and creates local jobs.",
+      "simple": "Europe's Hornsea Three wind farm starts producing electricity for 2 million homes, cutting emissions."
+    }
+  },
+  {
+    "id": 4,
+    "article_text": "New Study Finds Link Between Sleep Quality and Creativity\n\nA recent study published in the Journal of Cognitive Science suggests that people who experience vivid dreams and maintain consistent sleep patterns tend to perform better in creative tasks.\n\nThe researchers argue that deep REM sleep may help the brain reorganize information in ways that inspire creative thought.\n\nThe findings could influence how professionals in creative industries approach rest and productivity in the future.",
+    "summaries": {
+      "default": "A new study links vivid dreams and consistent sleep patterns to higher creativity, suggesting that deep REM sleep helps the brain reorganize ideas in innovative ways.",
+      "bullets": "• Study links vivid dreams and sleep patterns to creativity.\n• Deep REM sleep may help reorganize information.\n• Better sleep could improve creative task performance.\n• Findings may affect how creative professionals manage rest.",
+      "simple": "Vivid dreams and good sleep patterns can boost creativity, according to a new study."
+    }
+  },
+  {
+    "id": 5,
+    "article_text": "Electric Vehicle Battery Recycling Plant Opens in Sweden\n\nSweden has opened its first large-scale recycling plant for electric vehicle batteries near Gothenburg.\n\nThe facility can recover up to 95% of critical materials such as lithium, nickel, and cobalt, reducing the need for new mining.\n\nOfficials say the plant will process more than 10,000 tons of batteries each year, supporting the transition to sustainable electric vehicle production.",
+    "summaries": {
+      "default": "Sweden opened a large EV battery recycling plant that recovers up to 95% of lithium, nickel, and cobalt, cutting waste and supporting sustainable EV production.",
+      "bullets": "• Sweden opens first large-scale EV battery recycling plant.\n• Recovers 95% of lithium, nickel, and cobalt.\n• Reduces need for mining new materials.\n• Processes 10,000+ tons of batteries annually.",
+      "simple": "Sweden launches EV battery recycling plant that reclaims most materials, aiding sustainability."
+    }
+  }
+]
