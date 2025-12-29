@@ -28,6 +28,7 @@
   "URL": "URL",
   "text": "Teksti",
   "file": "Tiedosto",
+  "save": "Tallenna",
   "textAreaDescription": "Kirjoita tai liitä teksti alla olevaan kenttään",
   "textAreaPlaceholder": "Liitä teksti, jonka haluat tiivistää...",
   "fileUploadDescription": "Lataa tiedosto yhteenvetoa varten",

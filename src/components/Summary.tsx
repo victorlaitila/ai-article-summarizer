@@ -25,9 +25,23 @@ export default function Summary({summary, summaryKeywords, showArticle, setShowA
   const bcpLang = detectBCPLang(summary);
   const { generatedKeywords, selectedKeywords, toggleKeyword } = useKeywords();
   const { t } = useTranslation();
+  const isSavedSummary = summaryKeywords || !showArticle || !setShowArticle;
 
-  // TODO: fix (reason is that array is stringified)
-  const keywordsToDisplay = (summaryKeywords && summaryKeywords.length > 0 ? summaryKeywords : (generatedKeywords ?? []));
+  const normalizeKeywords = (kw: any): string[] => {
+    if (!kw) return [];
+    if (Array.isArray(kw)) return kw.map(String).filter(Boolean);
+    if (typeof kw === "string") {
+      try {
+        const parsed = JSON.parse(kw);
+        if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean);
+      } catch {
+        return kw.split(",").map((s) => s.trim()).filter(Boolean);
+      }
+    }
+    return [];
+  };
+
+  const keywordsToDisplay = normalizeKeywords(summaryKeywords && summaryKeywords.length > 0 ? summaryKeywords : (generatedKeywords ?? []));
 
   return (
     <CardContent>
@@ -64,12 +78,14 @@ export default function Summary({summary, summaryKeywords, showArticle, setShowA
             return (
               <button
                 key={word + index}
-                onClick={() => toggleKeyword(word)}
+                onClick={() => {
+                  if (isSavedSummary) return;
+                  toggleKeyword(word)
+                }}
                 className={[
-                  style.bg,
-                  style.text,
-                  style.hoverBg,
-                  "px-2 py-1 rounded-full text-xs font-medium cursor-pointer hover:shadow-md",
+                  "px-2 py-1 rounded-full text-xs font-medium",
+                  !isSavedSummary && `cursor-pointer hover:shadow-md ${style.bg} ${style.text} ${style.hoverBg}`,
+                  isSavedSummary && "bg-sky-200",
                   isActive && `ring-2 ring-offset-1 ${style.ring}`
                 ].join(" ")}
               >
@@ -79,7 +95,7 @@ export default function Summary({summary, summaryKeywords, showArticle, setShowA
           })}
         </div>)}
       </div>
-      {showArticle !== undefined && setShowArticle !== undefined && (
+      {!isSavedSummary && (
         <button
           onClick={() => setShowArticle(!showArticle)}
           className="text-blue-600 font-medium hover:underline mt-4 cursor-pointer"

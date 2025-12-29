@@ -51,7 +51,8 @@ export default function SummaryButtonGroup({summary, showSaveButton}: SummaryBut
         <Share2 className="w-4 h-4" />
       </Button>
       {showSaveButton && (
-        <Button 
+        <Button
+          title={t("save")}
           variant="outline" 
           size="sm" 
           onClick={onSaveClick}

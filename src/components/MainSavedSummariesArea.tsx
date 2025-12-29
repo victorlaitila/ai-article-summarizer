@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
-import type { SavedSummary } from "../types";
 import Summary from "./Summary";
 import SummaryButtonGroup from "./SummaryButtonGroup";
+import { useSavedSummaries } from "../contexts/SavedSummariesContext";
 
-export default function MainSavedSummariesArea({savedSummaries}: {savedSummaries: Array<SavedSummary>}) {
+export default function MainSavedSummariesArea() {
   const { t } = useTranslation();
+  const { savedSummaries } = useSavedSummaries();
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">

@@ -3,10 +3,13 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useKeywords } from "../contexts/KeywordContext";
 import { ARTICLE_SUMMARY_FILENAME, ARTICLE_SUMMARY_SHARE_TITLE } from "../constants";
+import type { SavedSummary } from "../types";
+import { useSavedSummaries } from "../contexts/SavedSummariesContext";
 
 export function useSummaryActions(summary: string) {
   const { t } = useTranslation();
   const { generatedKeywords } = useKeywords();
+  const { addSavedSummary } = useSavedSummaries();
 
   const handleCopy = useCallback(async () => {
     try {
@@ -63,7 +66,6 @@ export function useSummaryActions(summary: string) {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/summaries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        
         body: JSON.stringify({
           summary,
           keywords: generatedKeywords,
@@ -75,6 +77,14 @@ export function useSummaryActions(summary: string) {
         console.error("Save failed", res.status, err);
         toast.error(t("summarySavedFailureMessage"));
         return;
+      }
+
+      const created: SavedSummary | null = await res.json();
+      // For updating UI with the newly created summary
+      if (created) {
+        // TODO: check the updated list of saved summaries
+        console.log("Saved summary", created);
+        addSavedSummary(created);
       }
 
       toast.success(t("summarySavedSuccessMessage"));
