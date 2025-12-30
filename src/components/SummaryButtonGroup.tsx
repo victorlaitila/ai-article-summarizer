@@ -1,18 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from './ui/Button';
-import { Bookmark, BookmarkCheck, Copy, Download, Share2 } from 'lucide-react';
+import { Bookmark, BookmarkCheck, Copy, Download, Share2, ExternalLink } from 'lucide-react';
 import { useSummaryActions } from '../hooks/useSummaryActions';
 import { useState } from 'react';
 import { USE_MOCK_API } from '../constants';
+import type { TempSummary } from '../types';
 
 interface SummaryButtonGroupProps {
-  summary: string;
+  summary: TempSummary;
   showSaveButton?: boolean;
 }
 
 export default function SummaryButtonGroup({summary, showSaveButton}: SummaryButtonGroupProps) {
   const { t } = useTranslation();
-  const { handleCopy, handleDownload, handleShare, handleSave } = useSummaryActions(summary);
+  const { handleOpenLink, handleCopy, handleDownload, handleShare, handleSave } = useSummaryActions(summary);
   
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
@@ -23,6 +24,16 @@ export default function SummaryButtonGroup({summary, showSaveButton}: SummaryBut
 
   return (
     <div className="flex gap-2">
+      <Button
+        title={t("openLink")}
+        variant="outline"
+        disabled={!summary.url}
+        size="sm"
+        onClick={handleOpenLink}
+        className="hover:bg-sky-50 hover:border-sky-200 hover:text-sky-700"
+      >
+        <ExternalLink className="w-4 h-4" />
+      </Button>
       <Button
         title={t("copy")}
         variant="outline"

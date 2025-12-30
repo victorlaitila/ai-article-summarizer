@@ -25,7 +25,7 @@ export default function Summary({summary, summaryKeywords, showArticle, setShowA
   const bcpLang = detectBCPLang(summary);
   const { generatedKeywords, selectedKeywords, toggleKeyword } = useKeywords();
   const { t } = useTranslation();
-  const isSavedSummary = summaryKeywords || !showArticle || !setShowArticle;
+  const isSavedSummary = summaryKeywords || showArticle === undefined || setShowArticle === undefined;
 
   const normalizeKeywords = (kw: any): string[] => {
     if (!kw) return [];

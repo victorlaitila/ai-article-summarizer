@@ -22,10 +22,13 @@
   "langChanged": "Language changed to English!",
   "showFullArticle": "Show Full Article",
   "hideFullArticle": "Hide Full Article",
+  "openLink": "Open link",
   "copy": "Copy",
   "download": "Download",
   "share": "Share",
   "save": "Save",
+  "saved": "Saved",
+  "generate": "Generate",
   "URL": "URL",
   "text": "Text",
   "file": "File",
@@ -36,6 +39,8 @@
   "failedToFetchData": "Failed to fetch data.",
   "enterValidUrl": "Please enter a valid URL.",
   "noDuplicateSubmission": "Please modify the content or mode to regenerate.",
+  "noSavedSummaries": "No saved summaries yet",
+  "noSavedSummariesDescription": "Generate and save summaries to see them here.",
   "disclaimerText": "Note: This application is optimized for English content. Summaries, keywords, and speech output may be less accurate for other languages.",
   "mockSummary": "This is a mock summary and article shown for demonstration purposes. The real server and backend API is not active in the live demo to avoid deployment costs, but the full functionality is available in the <projectLink>backend source code</projectLink>."
 }

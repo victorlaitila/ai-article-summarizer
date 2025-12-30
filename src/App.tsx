@@ -33,7 +33,15 @@ export default function App() {
       <AppHeader showSavedSummaries={showSavedSummaries} setShowSavedSummaries={setShowSavedSummaries} />
       
       {/* Main Content */}
-      { showSavedSummaries ? <MainSavedSummariesArea /> : <MainGeneratorArea />  }
+      <div className="relative">
+        <div aria-hidden={showSavedSummaries} className={showSavedSummaries ? "hidden" : ""}>
+          <MainGeneratorArea />
+        </div>
+
+        <div aria-hidden={!showSavedSummaries} className={!showSavedSummaries ? "hidden" : ""}>
+          <MainSavedSummariesArea />
+        </div>
+      </div>
     </div>
   );
 }

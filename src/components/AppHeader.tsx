@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Gradient from "./Gradient";
 import LanguageSelector from "./LanguageSelector";
-import { Bookmark, FileText } from "lucide-react";
+import ViewToggler from "./ViewToggler";
 
 interface AppHeaderProps {
   showSavedSummaries: boolean;
@@ -25,47 +25,8 @@ export default function AppHeader({showSavedSummaries, setShowSavedSummaries}: A
             </h1>
           </div>
           <div className="flex gap-3 items-center">
-
-            
-            <div className="flex items-center gap-2 bg-card/60 rounded-full p-1">
-              {/* Generator icon (selects generator view) */}
-              <button
-                title="Generator"
-                type="button"
-                onClick={() => setShowSavedSummaries(false)}
-                aria-label={t("generatorView")}
-                className={`p-3 cursor-pointer rounded-full transition ${!showSavedSummaries ? "bg-indigo-50 text-indigo-700" : "text-muted-foreground hover:bg-transparent"}`}
-              >
-                <FileText className="w-4 h-4" />
-              </button>
-
-              {/* TODO: update this switch component and functionality */}
-              <button
-                type="button"
-                role="switch"
-                aria-checked={showSavedSummaries}
-                onClick={() => setShowSavedSummaries(!showSavedSummaries)}
-                className={`relative cursor-pointer inline-flex items-center h-8 w-14 rounded-full transition-shadow focus:outline-none ${showSavedSummaries ? "bg-indigo-600" : "bg-gray-300"}`}
-              >
-                <span
-                  className={`inline-block h-6 w-6 transform bg-white rounded-full shadow transition-transform ${showSavedSummaries ? "translate-x-6" : "translate-x-1"}`}
-                />
-              </button>
-
-              {/* Saved icon (selects saved summaries view) */}
-              <button
-                title="Saved Summaries"
-                type="button"
-                onClick={() => setShowSavedSummaries(true)}
-                aria-label={t("savedSummaries")}
-                className={`p-3 rounded-full cursor-pointer transition ${showSavedSummaries ? "bg-indigo-50 text-indigo-700" : "text-muted-foreground hover:bg-transparent"}`}
-              >
-                <Bookmark className="w-4 h-4" />
-              </button>
-            </div>
-
-
-            <span aria-hidden className="h-6 w-px mr-2 bg-muted-foreground/30" />
+            <ViewToggler showSavedSummaries={showSavedSummaries} setShowSavedSummaries={setShowSavedSummaries} />
+            <span aria-hidden className="h-6 w-px mr-2 ml-1 bg-muted-foreground/30" />
             <LanguageSelector />
           </div>
         </div>

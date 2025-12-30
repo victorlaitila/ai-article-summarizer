@@ -18,9 +18,15 @@ export interface SummarizePayload {
   mode: SummaryMode;
 }
 
+export interface TempSummary {
+  content: string;
+  url?: string;
+}
+
 export interface SavedSummary {
   id: number;
-  summary: string;
+  content: string;
   keywords: string[];
+  url?: string;
   created_at: string;
 }

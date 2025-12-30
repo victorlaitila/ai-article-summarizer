@@ -11,7 +11,7 @@ import SummaryButtonGroup from ".././components/SummaryButtonGroup";
 import SummaryPlaceholder from ".././components/SummaryPlaceholder";
 import FullArticle from ".././components/FullArticle";
 import Summary from ".././components/Summary";
-import type { SourceHandler, SourceType, SummaryMode } from "../types";
+import { type TempSummary, type SourceHandler, type SourceType, type SummaryMode } from "../types";
 import { useContentHandler } from "../hooks/useContentHandler";
 import { useSpeechSynthesis } from "../hooks/useSpeechSynthesis";
 import { toast } from "sonner";
@@ -23,7 +23,7 @@ export default function MainGeneratorArea() {
   const [file, setFile] = useState<File | undefined>(undefined);
   const [summaryMode, setSummaryMode] = useState<SummaryMode>("default");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [summary, setSummary] = useState("");
+  const [summary, setSummary] = useState<TempSummary | null>(null);
   const [article, setArticle] = useState("");
   const [showArticle, setShowArticle] = useState<boolean>(false);
 
@@ -70,7 +70,7 @@ export default function MainGeneratorArea() {
       // Stop any ongoing TTS when a new summary/article has been generated
       stopTTS();
       sourceHandlers[sourceType].clearOtherSources();
-      setSummary(result.summary);
+      setSummary({ content: result.summary, url: sourceType === "url" ? inputValue : undefined });
       setArticle(result.article_text);
       toast.success(t("successfulGeneration"));
     }
@@ -110,7 +110,7 @@ export default function MainGeneratorArea() {
               </div>
             </CardHeader>
             <Summary
-              summary={summary}
+              summary={summary.content}
               showArticle={showArticle}
               setShowArticle={setShowArticle}
             />

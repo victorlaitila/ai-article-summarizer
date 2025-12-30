@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
+import { Card, CardHeader, CardTitle } from "./ui/Card";
 import Summary from "./Summary";
 import SummaryButtonGroup from "./SummaryButtonGroup";
 import { useSavedSummaries } from "../contexts/SavedSummariesContext";
+import NoSavedSummariesPlaceholder from "./NoSavedSummariesPlaceholder";
 
 export default function MainSavedSummariesArea() {
   const { t } = useTranslation();
@@ -14,21 +15,17 @@ export default function MainSavedSummariesArea() {
 
          {/* List of saved summaries */}
         {savedSummaries.length === 0 ? (
-          <Card className="shadow-xl bg-linear-to-br from-card to-purple-50/30">
-            <CardContent className="p-6 text-center text-sm text-muted-foreground">
-              {t("noSavedSummaries")}
-            </CardContent>
-          </Card>
+          <NoSavedSummariesPlaceholder />
         ) : (
-          savedSummaries.map((item) => (
-            <Card key={item.id} className="shadow-xl bg-linear-to-br from-card to-purple-50/30">
+          savedSummaries.map((summary) => (
+            <Card key={summary.id} className="shadow-xl bg-linear-to-br from-card to-purple-50/30">
               <CardHeader>
                 <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5">
                   <CardTitle className="text-2xl font-medium">{t("generatedSummary")}</CardTitle>
-                  <SummaryButtonGroup summary={item.summary} />
+                  <SummaryButtonGroup summary={{content: summary.content, url: summary.url}} />
                 </div>
               </CardHeader>
-              <Summary summary={item.summary} summaryKeywords={item.keywords} />
+              <Summary summary={summary.content} summaryKeywords={summary.keywords} />
             </Card>
           ))
         )}

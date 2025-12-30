@@ -20,6 +20,7 @@
   "summarySavedSuccessMessage": "Yhteenveto tallennettu!",
   "summarySavedFailureMessage": "Yhteenvedon tallennus epäonnistui!",
   "langChanged": "Kieli vaihdettu suomeksi!",
+  "openLink": "Avaa linkki",
   "copy": "Kopioi",
   "download": "Lataa",
   "share": "Jaa",
@@ -29,6 +30,8 @@
   "text": "Teksti",
   "file": "Tiedosto",
   "save": "Tallenna",
+  "saved": "Tallennettu",
+  "generate": "Generoi",
   "textAreaDescription": "Kirjoita tai liitä teksti alla olevaan kenttään",
   "textAreaPlaceholder": "Liitä teksti, jonka haluat tiivistää...",
   "fileUploadDescription": "Lataa tiedosto yhteenvetoa varten",
@@ -36,5 +39,7 @@
   "failedToFetchData": "Datan hakeminen epäonnistui.",
   "enterValidUrl": "Syötä kelvollinen URL-osoite.",
   "noDuplicateSubmission": "Muokkaa sisältöä tai yhteenvetotilaa uudelleen luomiseksi.",
+  "noSavedSummaries": "Ei tallennettuja yhteenvetoja",
+  "noSavedSummariesDescription": "Luo ja tallenna yhteenvedot, jotta ne näkyisivät täällä.",
   "disclaimerText": "Huom: Tämä sovellus on optimoitu englanninkieliselle sisällölle. Yhteenvedot, avainsanat ja puheentuotto voivat olla vähemmän tarkkoja muilla kielillä."
 }

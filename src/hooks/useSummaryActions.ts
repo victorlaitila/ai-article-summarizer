@@ -3,20 +3,26 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useKeywords } from "../contexts/KeywordContext";
 import { ARTICLE_SUMMARY_FILENAME, ARTICLE_SUMMARY_SHARE_TITLE } from "../constants";
-import type { SavedSummary } from "../types";
+import type { SavedSummary, TempSummary } from "../types";
 import { useSavedSummaries } from "../contexts/SavedSummariesContext";
 
-export function useSummaryActions(summary: string) {
+export function useSummaryActions(summary: TempSummary) {
   const { t } = useTranslation();
   const { generatedKeywords } = useKeywords();
   const { addSavedSummary } = useSavedSummaries();
+
+  const handleOpenLink = useCallback(() => {
+    if (summary.url) {
+      window.open(summary.url, "_blank");
+    }
+  }, [summary]);
 
   const handleCopy = useCallback(async () => {
     try {
       if (!navigator.clipboard) {
         throw new Error("Clipboard not supported");
       }
-      await navigator.clipboard.writeText(summary);
+      await navigator.clipboard.writeText(summary.content);
       toast.success(t("copiedMessage"));
     } catch (err) {
       console.error("Copy failed", err);
@@ -25,7 +31,7 @@ export function useSummaryActions(summary: string) {
 
   const handleDownload = useCallback(() => {
     try {
-      const blob = new Blob([summary], { type: "text/plain" });
+      const blob = new Blob([summary.content], { type: "text/plain" });
       const objectUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = objectUrl;
@@ -47,7 +53,7 @@ export function useSummaryActions(summary: string) {
       if (navigator.share) {
         await navigator.share({
           title: ARTICLE_SUMMARY_SHARE_TITLE,
-          text: summary,
+          text: summary.content,
         });
       } else {
         // Fallback for browsers that don't support Web Share API
@@ -67,8 +73,9 @@ export function useSummaryActions(summary: string) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          summary,
+          content: summary.content,
           keywords: generatedKeywords,
+          url: summary.url,
         }),
       });
 
@@ -82,8 +89,6 @@ export function useSummaryActions(summary: string) {
       const created: SavedSummary | null = await res.json();
       // For updating UI with the newly created summary
       if (created) {
-        // TODO: check the updated list of saved summaries
-        console.log("Saved summary", created);
         addSavedSummary(created);
       }
 
@@ -92,7 +97,7 @@ export function useSummaryActions(summary: string) {
       console.error("Error saving summary", e);
       toast.error(t("summarySavedFailureMessage"));
     }
-  }, [summary, t, generatedKeywords]);
+  }, [summary, t, generatedKeywords, addSavedSummary]);
 
-  return { handleCopy, handleDownload, handleShare, handleSave };
+  return { handleOpenLink, handleCopy, handleDownload, handleShare, handleSave };
 }

@@ -20,10 +20,13 @@
   "summarySavedSuccessMessage": "Sammanfattningen har sparats!",
   "summarySavedFailureMessage": "Misslyckades med att spara sammanfattningen!",
   "langChanged": "Språket ändrat till svenska!",
+  "openLink": "Öppna länk",
   "copy": "Kopiera",
   "download": "Ladda ner",
   "share": "Dela",
   "save": "Spara",
+  "saved": "Sparade",
+  "generate": "Generera",
   "showFullArticle": "Visa Hela Artikeln",
   "hideFullArticle": "Dölj Hela Artikeln",
   "URL": "URL",
@@ -36,5 +39,7 @@
   "failedToFetchData": "Misslyckades med att hämta data.",
   "enterValidUrl": "Ange en giltig URL.",
   "noDuplicateSubmission": "Ändra innehållet eller sammanfattningsläget för att generera om.",
+  "noSavedSummaries": "Inga sparade sammanfattningar",
+  "noSavedSummariesDescription": "Generera och spara sammanfattningar för att de ska visas här.",
   "disclaimerText": "Obs! Denna applikation är optimerad för engelskt innehåll. Sammanfattningar, nyckelord och tal kan vara mindre exakta för andra språk."
 }

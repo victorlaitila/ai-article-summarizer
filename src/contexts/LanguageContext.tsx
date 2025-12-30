@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import type { Language } from '../types';
 import i18n from '../i18n';
 import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
 
 interface LanguageContextType {
   language: Language;
@@ -19,13 +18,11 @@ interface LanguageProviderProps {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, setLanguage] = useState<Language>('en'); 
 
-  const { t } = useTranslation();
-
-  const changeLanguage = (lang: Language, noToast?: boolean) => {
+  const changeLanguage = async (lang: Language, noToast?: boolean) => {
+    await i18n.changeLanguage(lang);
     setLanguage(lang);
-    i18n.changeLanguage(lang);
     if (!noToast) {
-      toast.success(t("langChanged"));
+      toast.success(i18n.t("langChanged"));
     }
   };
 
