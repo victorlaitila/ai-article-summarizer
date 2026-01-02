@@ -79,7 +79,7 @@ export default function MainGeneratorArea() {
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="space-y-8">
+      <div className="space-y-4">
 
         {/* Input Section */}
         <Card className="shadow-xl border bg-linear-to-br from-card to-accent/10">

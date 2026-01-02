@@ -31,6 +31,7 @@
   "file": "Tiedosto",
   "save": "Tallenna",
   "saved": "Tallennettu",
+  "delete": "Poista",
   "generate": "Generoi",
   "textAreaDescription": "Kirjoita tai liitä teksti alla olevaan kenttään",
   "textAreaPlaceholder": "Liitä teksti, jonka haluat tiivistää...",

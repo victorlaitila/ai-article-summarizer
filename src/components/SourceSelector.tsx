@@ -25,7 +25,7 @@ export default function SourceSelector({ sourceType, setSourceType }: SourceSele
           variant={sourceType === type ? "default" : null}
           className={cn(
             "rounded-full border text-sm px-4 py-1",
-            sourceType === type && "ring-1 ring-indigo-400"
+            sourceType === type && "ring-1 ring-blue-400"
           )}
           onClick={() => setSourceType(type as SourceType)}
         >

@@ -23,7 +23,7 @@ export default function ViewToggler({showSavedSummaries, setShowSavedSummaries}:
         type="button"
         onClick={() => setShowSavedSummaries(false)}
         className={`relative cursor-pointer z-10 flex flex-1 items-center justify-center gap-1 h-8 rounded-full transition-colors duration-200 ${
-          !showSavedSummaries ? "text-indigo-600 font-semibold" : "text-gray-500 hover:text-gray-700"
+          !showSavedSummaries ? "text-blue-600 font-semibold" : "text-gray-500 hover:text-gray-700"
         }`}
       >
         <FileText className="w-3.5 h-3.5" />
@@ -35,7 +35,7 @@ export default function ViewToggler({showSavedSummaries, setShowSavedSummaries}:
         type="button"
         onClick={() => setShowSavedSummaries(true)}
         className={`relative cursor-pointer z-10 flex flex-1 items-center justify-center gap-1 h-8 rounded-full transition-colors duration-200 ${
-          showSavedSummaries ? "text-indigo-600 font-semibold" : "text-gray-500 hover:text-gray-700"
+          showSavedSummaries ? "text-blue-600 font-semibold" : "text-gray-500 hover:text-gray-700"
         }`}
       >
         <Bookmark className="w-3.5 h-3.5" />

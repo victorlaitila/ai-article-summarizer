@@ -28,7 +28,7 @@ export default function TextToSpeechButton({ text, lang = "en-US" }: TextToSpeec
       className={`cursor-pointer relative top-0.75 left-2 rounded-full shadow-sm
         ${isThisSpeaking
           ? "bg-red-100 hover:bg-red-200 text-red-600"
-          : "bg-indigo-100 hover:bg-indigo-200 text-indigo-700"
+          : "bg-blue-100 hover:bg-blue-200 text-blue-700"
         }`}
       title={isThisSpeaking ? "Stop" : "Listen"}
     >
