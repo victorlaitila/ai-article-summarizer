@@ -76,8 +76,8 @@ export default function MainSavedSummariesArea() {
           savedSummaries.map((summary) => (
             <Card key={summary.id} className="shadow-xl border bg-linear-to-br from-card to-accent/10">
               <CardHeader>
-                <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5 items-start">
-                  <div className="flex items-center gap-3">
+                <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5 items-center">
+                  <div className="flex items-center gap-3 ml-1">
                     {/* Delete summary button */}
                     <button
                       title={t("delete")}
@@ -87,18 +87,18 @@ export default function MainSavedSummariesArea() {
                       <Trash2 className="w-4 h-4" />
                     </button>
                     <span aria-hidden className="h-4 w-px ml-1 bg-muted-foreground/30" />
-                    <CardTitle className="text-lg font-medium">{formatDate(summary.created_at)}</CardTitle>
+                    <CardTitle className="text-muted-foreground">{formatDate(summary.created_at)}</CardTitle>
                     {summary.url && (
                       <div className="flex items-center gap-3.5">
                         <span aria-hidden className="h-4 w-px ml-1 bg-muted-foreground/30" />
-                        <span className="px-0.5">{getSourceLabel(summary.url)}</span>
+                        <span className="px-0.5 text-muted-foreground">{getSourceLabel(summary.url)}</span>
                       </div>
                     )}
                   </div>
                   <SummaryButtonGroup summary={{ content: summary.content, url: summary.url }} />
                 </div>
               </CardHeader>
-              <Summary summary={summary.content} summaryKeywords={summary.keywords} />
+              <Summary summary={summary.content} summaryTitle={summary.title} summaryKeywords={summary.keywords} />
             </Card>
           ))
         )}

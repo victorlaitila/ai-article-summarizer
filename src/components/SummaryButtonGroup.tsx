@@ -24,7 +24,10 @@ export default function SummaryButtonGroup({summary, showSaveButton}: SummaryBut
 
   const onSaveClick = async () => {
     setIsSaved(true);
-    await handleSave();
+    const res = await handleSave();
+    if (res === false) {
+      setIsSaved(false);
+    }
   }
 
   return (

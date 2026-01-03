@@ -76,6 +76,7 @@ export function useSummaryActions(summary: TempSummary) {
           content: summary.content,
           keywords: generatedKeywords,
           url: summary.url,
+          title: summary.title,
         }),
       });
 
@@ -83,7 +84,7 @@ export function useSummaryActions(summary: TempSummary) {
         const err = await res.text();
         console.error("Save failed", res.status, err);
         toast.error(t("summarySavedFailureMessage"));
-        return;
+        return false;
       }
 
       const created: SavedSummary | null = await res.json();
@@ -96,6 +97,7 @@ export function useSummaryActions(summary: TempSummary) {
     } catch (e) {
       console.error("Error saving summary", e);
       toast.error(t("summarySavedFailureMessage"));
+      return false;
     }
   }, [summary, t, generatedKeywords, addSavedSummary]);
 

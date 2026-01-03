@@ -10,6 +10,7 @@ export type SourceHandler = {
 export interface ArticleFetchResult {
   article_text: string;
   summary: string;
+  title?: string;
 }
 
 export interface SummarizePayload {
@@ -21,6 +22,7 @@ export interface SummarizePayload {
 export interface TempSummary {
   content: string;
   url?: string;
+  title?: string;
 }
 
 export interface SavedSummary {
@@ -28,5 +30,6 @@ export interface SavedSummary {
   content: string;
   keywords: string[];
   url?: string;
+  title?: string;
   created_at: string;
 }

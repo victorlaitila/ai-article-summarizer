@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from "react-i18next";
-import { CardContent } from "./ui/Card";
+import { CardContent, CardTitle } from "./ui/Card";
 import TextToSpeechButton from "./TextToSpeechButton";
 import { detectBCPLang } from "../utils/language";
 import { useKeywords } from "../contexts/KeywordContext";
@@ -8,6 +8,7 @@ import { USE_MOCK_API } from "../constants";
 
 interface SummaryProps {
   summary: string;
+  summaryTitle?: string;
   summaryKeywords?: string[];
   showArticle?: boolean;
   setShowArticle?: (show: boolean) => void;
@@ -21,7 +22,7 @@ const keywordButtonStyles = [
   { bg: "bg-purple-200", hoverBg: "hover:bg-purple-300", text: "text-purple-900", ring: "ring-purple-400", ringRgb: "159,122,234" },
 ];
 
-export default function Summary({summary, summaryKeywords, showArticle, setShowArticle}: SummaryProps) {
+export default function Summary({summary, summaryTitle, summaryKeywords, showArticle, setShowArticle}: SummaryProps) {
   const bcpLang = detectBCPLang(summary);
   const { generatedKeywords, selectedKeywords, toggleKeyword } = useKeywords();
   const { t } = useTranslation();
@@ -66,6 +67,9 @@ export default function Summary({summary, summaryKeywords, showArticle, setShowA
           </>
         )}
         <div>
+          {summaryTitle && (
+            <CardTitle className="text-l font-semibold mb-4 mt-1">{summaryTitle}</CardTitle>
+          )}
           <FormattedText text={summary} />
           <TextToSpeechButton text={summary} lang={bcpLang} />
         </div>

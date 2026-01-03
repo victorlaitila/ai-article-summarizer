@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import SourceSelector from ".././components/SourceSelector";
 import UrlInput from ".././components/UrlInput";
 import TextareaInput from ".././components/TextareaInput";
+import TitleInput from ".././components/TitleInput";
 import FileUploader from ".././components/FileUploader";
 import ModeSelector from ".././components/ModeSelector";
 import GeneratorButton from ".././components/GeneratorButton";
@@ -20,6 +21,7 @@ export default function MainGeneratorArea() {
   const [sourceType, setSourceType] = useState<SourceType>("url");
   const [url, setUrl] = useState("");
   const [freeText, setFreeText] = useState("");
+  const [title, setTitle] = useState("");
   const [file, setFile] = useState<File | undefined>(undefined);
   const [summaryMode, setSummaryMode] = useState<SummaryMode>("default");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -33,7 +35,7 @@ export default function MainGeneratorArea() {
 
   const hasValidInput =
     (sourceType === "url" && !!url.trim()) ||
-    (sourceType === "text" && !!freeText.trim()) ||
+    (sourceType === "text" && !!freeText.trim() && !!title.trim()) ||
     (sourceType === "file" && !!file);
 
   const isGeneratorButtonDisabled = isGenerating || !hasValidInput || !summaryMode;
@@ -43,6 +45,7 @@ export default function MainGeneratorArea() {
       getInput: () => url,
       clearOtherSources: () => {
         setFreeText("");
+        setTitle("");
         setFile(undefined);
       },
     },
@@ -58,6 +61,7 @@ export default function MainGeneratorArea() {
       clearOtherSources: () => {
         setUrl("");
         setFreeText("");
+        setTitle("");
       },
     },
   };
@@ -70,7 +74,12 @@ export default function MainGeneratorArea() {
       // Stop any ongoing TTS when a new summary/article has been generated
       stopTTS();
       sourceHandlers[sourceType].clearOtherSources();
-      setSummary({ content: result.summary, url: sourceType === "url" ? inputValue : undefined });
+      const summaryTitle = sourceType === "text" ? title : result.title;
+      setSummary({ 
+        content: result.summary, 
+        url: sourceType === "url" ? inputValue : undefined,
+        title: summaryTitle
+      });
       setArticle(result.article_text);
       toast.success(t("successfulGeneration"));
     }
@@ -89,7 +98,12 @@ export default function MainGeneratorArea() {
           <CardContent className="space-y-6">
             <SourceSelector sourceType={sourceType} setSourceType={setSourceType} />
             {sourceType === "url" && <UrlInput url={url} setUrl={setUrl} />}
-            {sourceType === "text" && <TextareaInput text={freeText} setText={setFreeText} />}
+            {sourceType === "text" && (
+              <>
+                <TitleInput title={title} setTitle={setTitle} />
+                <TextareaInput text={freeText} setText={setFreeText} />
+              </>
+            )}
             {sourceType === "file" && <FileUploader file={file} setFile={setFile} />}
             <ModeSelector summaryMode={summaryMode} setSummaryMode={setSummaryMode} />
             <GeneratorButton
@@ -111,6 +125,7 @@ export default function MainGeneratorArea() {
             </CardHeader>
             <Summary
               summary={summary.content}
+              summaryTitle={summary.title}
               showArticle={showArticle}
               setShowArticle={setShowArticle}
             />

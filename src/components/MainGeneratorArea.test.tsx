@@ -75,6 +75,33 @@ describe('MainGeneratorArea', () => {
     expect(screen.getByPlaceholderText('textAreaPlaceholder')).toBeInTheDocument();
   });
 
+  it('shows title input when text source is selected', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<MainGeneratorArea />);
+
+    const textButton = screen.getByRole('button', { name: /text/i });
+    await user.click(textButton);
+
+    expect(screen.getByPlaceholderText('titlePlaceholder')).toBeInTheDocument();
+    expect(screen.getByText('title')).toBeInTheDocument();
+  });
+
+  it('does not show title input for URL source', () => {
+    renderWithProviders(<MainGeneratorArea />);
+
+    expect(screen.queryByPlaceholderText('titlePlaceholder')).not.toBeInTheDocument();
+  });
+
+  it('does not show title input for file source', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<MainGeneratorArea />);
+
+    const fileButton = screen.getByRole('button', { name: /file/i });
+    await user.click(fileButton);
+
+    expect(screen.queryByPlaceholderText('titlePlaceholder')).not.toBeInTheDocument();
+  });
+
   it('switches to file input when file source is selected', async () => {
     const user = userEvent.setup();
     renderWithProviders(<MainGeneratorArea />);

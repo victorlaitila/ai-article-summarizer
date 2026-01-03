@@ -40,6 +40,8 @@
   "generate": "Generoi",
   "textAreaDescription": "Kirjoita tai liitä teksti alla olevaan kenttään",
   "textAreaPlaceholder": "Liitä teksti, jonka haluat tiivistää...",
+  "title": "Otsikko",
+  "titlePlaceholder": "Anna tiivisteelle otsikko...",
   "fileUploadDescription": "Lataa tiedosto yhteenvetoa varten",
   "uploadFile": "Lataa Tiedosto",
   "failedToFetchData": "Datan hakeminen epäonnistui.",

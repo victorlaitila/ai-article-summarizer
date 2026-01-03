@@ -84,4 +84,30 @@ describe('SummaryButtonGroup', () => {
     // After clicking, the button should be disabled (saved state)
     expect(saveButton).toBeDisabled();
   });
+
+  it('resets save button state when summary changes', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <SummaryButtonGroup summary={mockSummary} showSaveButton={true} />
+    );
+
+    const saveButton = screen.getByTitle('save');
+    expect(saveButton).not.toBeDisabled();
+
+    // Simulate saving
+    await user.click(saveButton);
+    expect(saveButton).toBeDisabled();
+
+    // Update summary (simulating new generation)
+    const newSummary: TempSummary = {
+      url: 'https://example.com/new',
+      content: 'New test summary content',
+    };
+
+    rerender(<SummaryButtonGroup summary={newSummary} showSaveButton={true} />);
+
+    // Save button should be enabled again
+    const updatedSaveButton = screen.getByTitle('save');
+    expect(updatedSaveButton).not.toBeDisabled();
+  });
 });

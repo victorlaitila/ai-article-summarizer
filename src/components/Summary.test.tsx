@@ -39,10 +39,11 @@ const renderWithProviders = (ui: React.ReactElement) => {
 
 describe('Summary', () => {
   const mockSummary = 'This is a test summary of the article content.';
+  const mockTitle = 'Test Article Title';
 
-  it('renders the summary text', () => {
-    renderWithProviders(<Summary summary={mockSummary} />);
-
+  it('renders the summary title and content', () => {
+    renderWithProviders(<Summary summary={mockSummary} summaryTitle={mockTitle} />);
+    expect(screen.getByText(mockTitle)).toBeInTheDocument();
     expect(screen.getByText(mockSummary)).toBeInTheDocument();
   });
 

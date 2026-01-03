@@ -40,6 +40,8 @@
   "file": "File",
   "textAreaDescription": "Enter or paste your text below",
   "textAreaPlaceholder": "Paste the text you want summarized...",
+  "title": "Title",
+  "titlePlaceholder": "Enter a title for your summary...",
   "fileUploadDescription": "Upload a file to summarize",
   "uploadFile": "Upload File",
   "failedToFetchData": "Failed to fetch data.",
