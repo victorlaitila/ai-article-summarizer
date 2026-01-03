@@ -66,7 +66,7 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
             variant="ghost"
             size="sm"
             onClick={handleReset}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50 p-1"
+            className="text-red-500 hover:text-red-600 hover:bg-transparent p-1"
           >
             <X className="w-4 h-4" />
           </Button>

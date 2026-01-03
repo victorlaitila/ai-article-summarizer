@@ -15,13 +15,13 @@ export default function LanguageSelector() {
   return (
     <div>
       <Select value={language} onValueChange={(value: Language) => changeLanguage(value)}>
-        <SelectTrigger className="border-0 w-30 max-[500px]:w-15 max-[500px]:h-10">
+        <SelectTrigger className="border-0 w-30 max-[530px]:w-15 max-[530px]:h-10">
           {/* Normal select component for wide screens */}
-          <span className="max-[500px]:hidden">
+          <span className="max-[530px]:hidden">
             <SelectValue />
           </span>
           {/* Flag icon for narrow screens */}
-          <span className="hidden max-[500px]:flex">
+          <span className="hidden max-[530px]:flex">
             <ReactCountryFlag
               countryCode={languageNames[language].countryCode}
               svg

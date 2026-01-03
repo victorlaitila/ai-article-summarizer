@@ -10,7 +10,7 @@ export default function ViewToggler({showSavedSummaries, setShowSavedSummaries}:
   const { t } = useTranslation();
 
   return (
-    <div className="relative flex items-center bg-gray-100 dark:bg-zinc-900 rounded-full p-1 mr-0.5 w-64 border border-gray-200 dark:border-zinc-800">
+    <div className="relative flex items-center bg-gray-100 dark:bg-zinc-900 rounded-full p-1 mr-0.5 w-64 max-[720px]:w-20 border border-gray-200 dark:border-zinc-800">
       {/* The Sliding Background Highlight */}
       <div
         className={`absolute h-8 w-[calc(50%-4px)] bg-white dark:bg-zinc-800 rounded-full shadow-sm transition-all duration-300 ease-in-out ${
@@ -27,7 +27,7 @@ export default function ViewToggler({showSavedSummaries, setShowSavedSummaries}:
         }`}
       >
         <FileText className="w-3.5 h-3.5" />
-        <span className="text-xs">{t("generate")}</span>
+        <span className="text-xs max-[720px]:hidden">{t("generate")}</span>
       </button>
 
       {/* Saved View Button */}
@@ -39,7 +39,7 @@ export default function ViewToggler({showSavedSummaries, setShowSavedSummaries}:
         }`}
       >
         <Bookmark className="w-3.5 h-3.5" />
-        <span className="text-xs">{t("saved")}</span>
+        <span className="text-xs max-[720px]:hidden">{t("saved")}</span>
       </button>
     </div>
   )

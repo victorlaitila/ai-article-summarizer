@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from './ui/Button';
 import { Bookmark, BookmarkCheck, Copy, Download, Share2, ExternalLink } from 'lucide-react';
 import { useSummaryActions } from '../hooks/useSummaryActions';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { USE_MOCK_API } from '../constants';
 import type { TempSummary } from '../types';
 
@@ -16,6 +16,11 @@ export default function SummaryButtonGroup({summary, showSaveButton}: SummaryBut
   const { handleOpenLink, handleCopy, handleDownload, handleShare, handleSave } = useSummaryActions(summary);
   
   const [isSaved, setIsSaved] = useState<boolean>(false);
+
+  // Reset save state when a new summary is generated
+  useEffect(() => {
+    setIsSaved(false);
+  }, [summary]);
 
   const onSaveClick = async () => {
     setIsSaved(true);

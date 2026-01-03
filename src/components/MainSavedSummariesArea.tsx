@@ -1,14 +1,21 @@
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import { Card, CardHeader, CardTitle } from "./ui/Card";
 import Summary from "./Summary";
 import SummaryButtonGroup from "./SummaryButtonGroup";
 import { useSavedSummaries } from "../contexts/SavedSummariesContext";
 import NoSavedSummariesPlaceholder from "./NoSavedSummariesPlaceholder";
+import { ConfirmDialog } from "./ConfirmDialog";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { USE_MOCK_API } from "../constants";
+import type { SavedSummary } from "../types";
 
 export default function MainSavedSummariesArea() {
   const { t } = useTranslation();
-  const { savedSummaries } = useSavedSummaries();
+  const { savedSummaries, setSavedSummaries } = useSavedSummaries();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [summaryToDelete, setSummaryToDelete] = useState<number | null>(null);
 
   const formatDate = (iso?: string) => {
     if (!iso) return "";
@@ -27,13 +34,35 @@ export default function MainSavedSummariesArea() {
     }
   };
 
-  // TODO: implement delete functionality
   const handleDeleteSummary = async (id: number) => {
+    setSummaryToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (summaryToDelete === null) return;
+
     try {
+      if (!USE_MOCK_API) {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/summaries/${summaryToDelete}`, {
+          method: "DELETE",
+        });
+        
+        if (!res.ok) {
+          throw new Error("Failed to delete summary");
+        }
+      }
+
+      // Remove deleted summary from local state
+      setSavedSummaries((prev: SavedSummary[]) => prev.filter(s => s.id !== summaryToDelete));
       
+      // Show success toast
+      toast.success(t("summaryDeleted"));
     } catch (e) {
       console.error("Error deleting summary", e);
-    
+      toast.error(t("deleteFailed"));
+    } finally {
+      setSummaryToDelete(null);
     }
   }
 
@@ -74,6 +103,17 @@ export default function MainSavedSummariesArea() {
           ))
         )}
       </div>
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={confirmDelete}
+        title={t("confirmDeleteTitle")}
+        description={t("confirmDelete")}
+        confirmText={t("delete")}
+        cancelText={t("cancel")}
+        variant="destructive"
+      />
     </main>
   );
 }
