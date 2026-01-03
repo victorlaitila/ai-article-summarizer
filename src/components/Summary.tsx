@@ -63,7 +63,7 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
                 ),
               }}
             />
-            <div className="w-35/36 my-2 mx-auto h-px bg-gray-300" />
+            <div className="w-35/36 my-4 mx-auto h-px bg-gray-300" />
           </>
         )}
         <div>

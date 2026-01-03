@@ -82,7 +82,8 @@ export default function MainSavedSummariesArea() {
                     <button
                       title={t("delete")}
                       onClick={() => handleDeleteSummary(summary.id)}
-                      className="hover:text-red-700 cursor-pointer"
+                      disabled={USE_MOCK_API}
+                      className={!USE_MOCK_API ? "hover:text-red-700 cursor-pointer" : "text-gray-400"}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

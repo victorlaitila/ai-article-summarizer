@@ -47,6 +47,7 @@ export const fetchMockArticle = (summaryMode: SummaryMode): Promise<ArticleFetch
       const mockSummary = mockArticle.summaries?.[summaryMode];
       resolve({
         article_text: mockArticle.article_text,
+        title: mockArticle.title,
         summary: mockSummary,
       });
     }, mockDelay);
