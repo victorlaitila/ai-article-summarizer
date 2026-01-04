@@ -48,6 +48,14 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
                     className="text-blue-600 hover:underline"
                   />
                 ),
+                demoLink: (
+                  <a
+                    href="https://www.youtube.com/watch?v=lZrHd0tOBXo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  />
+                ),
               }}
             />
             <div className="w-35/36 my-4 mx-auto h-px bg-gray-300" />
