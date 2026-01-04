@@ -16,7 +16,11 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, setLanguage] = useState<Language>('en'); 
+  // Initialize language from i18n's current language (which persists via LanguageDetector)
+  const [language, setLanguage] = useState<Language>(() => {
+    const currentLang = i18n.language;
+    return ['en', 'sv', 'fi'].includes(currentLang) ? currentLang as Language : 'en';
+  }); 
 
   const changeLanguage = async (lang: Language) => {
     await i18n.changeLanguage(lang);

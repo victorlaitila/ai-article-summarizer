@@ -5,6 +5,7 @@ import { detectBCPLang } from "../utils/language";
 import { useKeywords } from "../contexts/KeywordContext";
 import { FormattedText } from "./FormattedText";
 import { USE_MOCK_API } from "../constants";
+import { normalizeKeywords } from "../utils/keywords";
 
 interface SummaryProps {
   summary: string;
@@ -27,20 +28,6 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
   const { generatedKeywords, selectedKeywords, toggleKeyword } = useKeywords();
   const { t } = useTranslation();
   const isSavedSummary = summaryKeywords || showArticle === undefined || setShowArticle === undefined;
-
-  const normalizeKeywords = (kw: any): string[] => {
-    if (!kw) return [];
-    if (Array.isArray(kw)) return kw.map(String).filter(Boolean);
-    if (typeof kw === "string") {
-      try {
-        const parsed = JSON.parse(kw);
-        if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean);
-      } catch {
-        return kw.split(",").map((s) => s.trim()).filter(Boolean);
-      }
-    }
-    return [];
-  };
 
   const keywordsToDisplay = normalizeKeywords(summaryKeywords && summaryKeywords.length > 0 ? summaryKeywords : (generatedKeywords ?? []));
 

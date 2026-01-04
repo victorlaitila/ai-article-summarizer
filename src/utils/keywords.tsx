@@ -53,3 +53,23 @@ export function extractKeywords(text: string, maxKeywords = 5): string[] {
     .map(([word]) => word)
     .slice(0, maxKeywords);
 }
+
+/**
+ * Normalizes the keywords input into an array of strings.
+ * 
+ * @param kw - The input keywords to normalize.
+ * @returns An array of normalized keywords.
+ */
+export function normalizeKeywords(kw: any): string[] {
+  if (!kw) return [];
+  if (Array.isArray(kw)) return kw.map(String).filter(Boolean);
+  if (typeof kw === "string") {
+    try {
+      const parsed = JSON.parse(kw);
+      if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean);
+    } catch {
+      return kw.split(",").map((s) => s.trim()).filter(Boolean);
+    }
+  }
+  return [];
+};

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle } from "./ui/Card";
 import Summary from "./Summary";
 import SummaryButtonGroup from "./SummaryButtonGroup";
@@ -9,13 +9,17 @@ import { ConfirmDialog } from "./ConfirmDialog";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { USE_MOCK_API } from "../constants";
+import { normalizeKeywords } from "../utils/keywords";
 import type { SavedSummary } from "../types";
+import SearchAndSort from "./SearchAndSort";
 
 export default function MainSavedSummariesArea() {
   const { t } = useTranslation();
   const { savedSummaries, setSavedSummaries } = useSavedSummaries();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [summaryToDelete, setSummaryToDelete] = useState<number | null>(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const formatDate = (iso?: string) => {
     if (!iso) return "";
@@ -66,14 +70,61 @@ export default function MainSavedSummariesArea() {
     }
   }
 
+  const toggleSortOrder = () => {
+    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+  };
+
+  const filteredAndSortedSummaries = useMemo(() => {
+    let result = [...savedSummaries];
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(summary => {
+        const titleMatch = summary.title?.toLowerCase().includes(query);
+        
+        // Handle keywords using normalizeKeywords utility
+        const keywords = normalizeKeywords(summary.keywords);
+        const keywordMatch = keywords.some(keyword => 
+          keyword.toLowerCase().includes(query)
+        );
+        
+        return titleMatch || keywordMatch;
+      });
+    }
+
+    // Sort by date
+    result.sort((a, b) => {
+      const dateA = new Date(a.created_at || 0).getTime();
+      const dateB = new Date(b.created_at || 0).getTime();
+      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    });
+
+    return result;
+  }, [savedSummaries, searchQuery, sortOrder]);
+
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="space-y-4">
+        {/* Search and Sort Controls */}
+        {savedSummaries.length > 0 && (
+          <SearchAndSort
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            sortOrder={sortOrder}
+            toggleSortOrder={toggleSortOrder}
+          />
+        )}
+
          {/* List of saved summaries */}
-        {savedSummaries.length === 0 ? (
+        {filteredAndSortedSummaries.length === 0 && savedSummaries.length > 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <p>{t("noMatchingResults")}</p>
+          </div>
+        ) : filteredAndSortedSummaries.length === 0 ? (
           <NoSavedSummariesPlaceholder />
         ) : (
-          savedSummaries.map((summary) => (
+          filteredAndSortedSummaries.map((summary) => (
             <Card key={summary.id} className="shadow-xl border bg-linear-to-br from-card to-accent/10">
               <CardHeader>
                 <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5 items-center">

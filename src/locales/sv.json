@@ -49,5 +49,9 @@
   "noDuplicateSubmission": "Ändra innehållet eller sammanfattningsläget för att generera om.",
   "noSavedSummaries": "Inga sparade sammanfattningar",
   "noSavedSummariesDescription": "Generera och spara sammanfattningar för att de ska visas här.",
+  "searchSummaries": "Sök efter titel eller nyckelord...",
+  "sortNewestFirst": "Äldst först",
+  "sortOldestFirst": "Nyast först",
+  "noMatchingResults": "Inga sammanfattningar matchar din sökning",
   "disclaimerText": "Obs! Denna applikation är optimerad för engelskt innehåll. Sammanfattningar, nyckelord och tal kan vara mindre exakta för andra språk."
 }

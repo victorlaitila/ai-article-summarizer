@@ -49,5 +49,9 @@
   "noDuplicateSubmission": "Muokkaa sisältöä tai yhteenvetotilaa uudelleen luomiseksi.",
   "noSavedSummaries": "Ei tallennettuja yhteenvetoja",
   "noSavedSummariesDescription": "Luo ja tallenna yhteenvedot, jotta ne näkyisivät täällä.",
+  "searchSummaries": "Hae otsikolla tai avainsanalla...",
+  "sortNewestFirst": "Vanhimmat ensin",
+  "sortOldestFirst": "Uusimmat ensin",
+  "noMatchingResults": "Mikään yhteenveto ei vastaa hakuasi",
   "disclaimerText": "Huom: Tämä sovellus on optimoitu englanninkieliselle sisällölle. Yhteenvedot, avainsanat ja puheentuotto voivat olla vähemmän tarkkoja muilla kielillä."
 }
