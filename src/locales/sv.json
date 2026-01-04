@@ -44,6 +44,7 @@
   "titlePlaceholder": "Ange en titel för din sammanfattning...",
   "fileUploadDescription": "Ladda upp en fil för sammanfattning",
   "uploadFile": "Ladda Upp Fil",
+  "dropFileHere": "Släpp filen här",
   "failedToFetchData": "Misslyckades med att hämta data.",
   "enterValidUrl": "Ange en giltig URL.",
   "noDuplicateSubmission": "Ändra innehållet eller sammanfattningsläget för att generera om.",

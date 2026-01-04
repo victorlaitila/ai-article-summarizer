@@ -44,6 +44,7 @@
   "titlePlaceholder": "Enter a title for your summary...",
   "fileUploadDescription": "Upload a file to summarize",
   "uploadFile": "Upload File",
+  "dropFileHere": "Drop file here",
   "failedToFetchData": "Failed to fetch data.",
   "enterValidUrl": "Please enter a valid URL.",
   "noDuplicateSubmission": "Please modify the content or mode to regenerate.",

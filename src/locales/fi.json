@@ -44,6 +44,7 @@
   "titlePlaceholder": "Anna tiivisteelle otsikko...",
   "fileUploadDescription": "Lataa tiedosto yhteenvetoa varten",
   "uploadFile": "Lataa Tiedosto",
+  "dropFileHere": "Pudota tiedosto tähän",
   "failedToFetchData": "Datan hakeminen epäonnistui.",
   "enterValidUrl": "Syötä kelvollinen URL-osoite.",
   "noDuplicateSubmission": "Muokkaa sisältöä tai yhteenvetotilaa uudelleen luomiseksi.",

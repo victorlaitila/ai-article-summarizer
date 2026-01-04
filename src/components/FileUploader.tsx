@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "./ui/Button";
 import { useTranslation } from "react-i18next";
 import { Upload, X } from "lucide-react";
@@ -11,6 +11,7 @@ interface FileUploaderProps {
 export default function FileUploader({ file, setFile }: FileUploaderProps) {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -30,6 +31,40 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
     fileInputRef.current?.click();
   };
 
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const droppedFile = e.dataTransfer.files?.[0];
+    if (droppedFile) {
+      // Validate file type
+      const validTypes = ['.pdf', '.txt', 'application/pdf', 'text/plain'];
+      const fileExtension = '.' + droppedFile.name.split('.').pop()?.toLowerCase();
+      
+      if (validTypes.includes(fileExtension) || validTypes.includes(droppedFile.type)) {
+        setFile(droppedFile);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <p className="font-medium text-sm text-gray-700">
@@ -41,11 +76,19 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
         <button
           type="button"
           onClick={handleClick}
-          className="flex flex-col items-center justify-center w-full rounded-lg border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors py-6 cursor-pointer"
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className={`flex flex-col items-center justify-center w-full rounded-lg border border-dashed transition-colors py-6 cursor-pointer ${
+            isDragging 
+              ? 'border-blue-400 bg-blue-50' 
+              : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
+          }`}
         >
-          <Upload className="w-4 h-4 text-gray-500 mb-1" />
-          <span className="text-sm text-gray-600 font-medium">
-            {t("uploadFile")}
+          <Upload className={`w-4 h-4 mb-1 ${isDragging ? 'text-blue-500' : 'text-gray-500'}`} />
+          <span className={`text-sm font-medium ${isDragging ? 'text-blue-600' : 'text-gray-600'}`}>
+            {isDragging ? t("dropFileHere") : t("uploadFile")}
           </span>
           <span className="text-xs text-gray-400">
             (.pdf, .txt)

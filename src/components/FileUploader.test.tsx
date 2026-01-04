@@ -103,4 +103,41 @@ describe('FileUploader', () => {
 
     expect(mockSetFile).toHaveBeenCalledWith(undefined);
   });
+
+  it('handles drag and drop of a valid PDF file', async () => {
+    const mockSetFile = vi.fn();
+    const testFile = new File(['test content'], 'test.pdf', { type: 'application/pdf' });
+
+    render(<FileUploader file={undefined} setFile={mockSetFile} />);
+
+    const uploadButton = screen.getByRole('button', { name: /uploadFile/i });
+
+    // Simulate drag and drop
+    const dropEvent = new Event('drop', { bubbles: true }) as any;
+    dropEvent.dataTransfer = {
+      files: [testFile],
+    };
+
+    uploadButton.dispatchEvent(dropEvent);
+
+    expect(mockSetFile).toHaveBeenCalledWith(testFile);
+  });
+
+  it('handles drag and drop of a valid TXT file', async () => {
+    const mockSetFile = vi.fn();
+    const testFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
+
+    render(<FileUploader file={undefined} setFile={mockSetFile} />);
+
+    const uploadButton = screen.getByRole('button', { name: /uploadFile/i });
+
+    const dropEvent = new Event('drop', { bubbles: true }) as any;
+    dropEvent.dataTransfer = {
+      files: [testFile],
+    };
+
+    uploadButton.dispatchEvent(dropEvent);
+
+    expect(mockSetFile).toHaveBeenCalledWith(testFile);
+  });
 });
