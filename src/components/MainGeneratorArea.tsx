@@ -68,22 +68,22 @@ export default function MainGeneratorArea() {
 
   const onGenerateClick = async () => {
     setIsGenerating(true);
-    const inputValue = sourceHandlers[sourceType].getInput();
-    const result = await handleGenerate(sourceType, inputValue, file);
-    if (result?.summary && result.article_text) {
-      // Stop any ongoing TTS when a new summary/article has been generated
-      stopTTS();
-      sourceHandlers[sourceType].clearOtherSources();
-      const summaryTitle = sourceType === "text" ? title : result.title;
-      setSummary({ 
-        content: result.summary, 
-        url: sourceType === "url" ? inputValue : undefined,
-        title: summaryTitle
-      });
-      setArticle(result.article_text);
-      toast.success(t("successfulGeneration"));
-    }
-    setIsGenerating(false);
+      const inputValue = sourceHandlers[sourceType].getInput();
+      const result = await handleGenerate(sourceType, inputValue, file);
+      if (result?.summary && result.article_text) {
+        // Stop any ongoing TTS when a new summary/article has been generated
+        stopTTS();
+        sourceHandlers[sourceType].clearOtherSources();
+        const summaryTitle = sourceType === "text" ? title : result.title;
+        setSummary({ 
+          content: result.summary, 
+          url: sourceType === "url" ? inputValue : undefined,
+          title: summaryTitle
+        });
+        setArticle(result.article_text);
+        toast.success(t("successfulGeneration"));
+      }
+      setIsGenerating(false);
   };
 
   return (
@@ -104,7 +104,7 @@ export default function MainGeneratorArea() {
                 <TextareaInput text={freeText} setText={setFreeText} />
               </>
             )}
-            {sourceType === "file" && <FileUploader file={file} setFile={setFile} />}
+            {sourceType === "file" && <FileUploader file={file} setFile={setFile} disabled={isGenerating} />}
             <ModeSelector summaryMode={summaryMode} setSummaryMode={setSummaryMode} />
             <GeneratorButton
               onClick={onGenerateClick}

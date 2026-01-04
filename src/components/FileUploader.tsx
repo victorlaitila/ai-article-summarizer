@@ -6,9 +6,10 @@ import { Upload, X } from "lucide-react";
 interface FileUploaderProps {
   file: File | undefined;
   setFile: (file: File | undefined) => void;
+  disabled?: boolean;
 }
 
-export default function FileUploader({ file, setFile }: FileUploaderProps) {
+export default function FileUploader({ file, setFile, disabled }: FileUploaderProps) {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -40,7 +41,11 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    // Only set isDragging to false if we're actually leaving the container
+    const relatedTarget = e.relatedTarget as Node;
+    if (!e.currentTarget.contains(relatedTarget)) {
+      setIsDragging(false);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -66,7 +71,14 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className="flex flex-col gap-2"
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      style={{ pointerEvents: disabled ? "none" : "auto" }}
+    >
       <p className="font-medium text-sm text-gray-700">
         {t("fileUploadDescription")}
       </p>
@@ -75,11 +87,8 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
       {!file ? (
         <button
           type="button"
+          disabled={disabled}
           onClick={handleClick}
-          onDragEnter={handleDragEnter}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
           className={`flex flex-col items-center justify-center w-full rounded-lg border border-dashed transition-colors py-6 cursor-pointer ${
             isDragging 
               ? 'border-blue-400 bg-blue-50' 
@@ -108,6 +117,7 @@ export default function FileUploader({ file, setFile }: FileUploaderProps) {
           <Button
             variant="ghost"
             size="sm"
+            disabled={disabled}
             onClick={handleReset}
             className="text-red-500 hover:text-red-600 hover:bg-transparent p-1"
           >
