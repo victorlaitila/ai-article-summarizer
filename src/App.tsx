@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Toaster } from "sonner";
-import { useLanguage } from "./contexts/LanguageContext";
 import AppHeader from "./components/AppHeader";
 import { TOAST_DURATION } from "./constants";
 import MainGeneratorArea from "./components/MainGeneratorArea";
@@ -10,12 +9,7 @@ import { useSavedSummaries } from "./contexts/SavedSummariesContext";
 export default function App() {
   const [showSavedSummaries, setShowSavedSummaries] = useState<boolean>(false);
 
-  const { language, changeLanguage } = useLanguage();
   const { savedSummaries } = useSavedSummaries();
-
-  useEffect(() => {
-    changeLanguage(language, true); // No toast on initial load
-  }, []);
 
   return (
     <div className={showSavedSummaries && savedSummaries.length === 0 ? "bg-white h-screen" : "bg-linear-to-br from-background via-accent/20 to-background h-screen"}>

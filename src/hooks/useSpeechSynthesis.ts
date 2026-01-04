@@ -5,19 +5,6 @@ export function useSpeechSynthesis() {
   const [activeText, setActiveText] = useState<string | null>(null);
   const voicesRef = useRef<SpeechSynthesisVoice[] | null>(null);
 
-  useEffect(() => {
-    const loadVoices = () => {
-      voicesRef.current = window.speechSynthesis.getVoices() || [];
-    };
-
-    loadVoices();
-    window.addEventListener("beforeunload", stopTTS);
-
-    return () => {
-      window.removeEventListener("beforeunload", stopTTS);
-    };
-  }, []);
-
   const startTTS = useCallback((text: string, lang = "en-US") => {
     if (!text.trim()) {
       return;
@@ -48,12 +35,25 @@ export function useSpeechSynthesis() {
 
     window.speechSynthesis.speak(utterance);
   }, []);
-
+  
   const stopTTS = useCallback(() => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
     setActiveText(null);
   }, []);
+
+  useEffect(() => {
+    const loadVoices = () => {
+      voicesRef.current = window.speechSynthesis.getVoices() || [];
+    };
+
+    loadVoices();
+    window.addEventListener("beforeunload", stopTTS);
+
+    return () => {
+      window.removeEventListener("beforeunload", stopTTS);
+    };
+  }, [stopTTS]);
 
   return { isSpeaking, activeText, startTTS, stopTTS };
 }

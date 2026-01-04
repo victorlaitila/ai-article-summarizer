@@ -65,7 +65,7 @@ export function useSummaryActions(summary: TempSummary) {
       }
       console.error("Share failed", err);
     }
-  }, [summary, t, handleCopy]);
+  }, [summary, handleCopy]);
 
   const handleSave = useCallback(async () => {
     try {

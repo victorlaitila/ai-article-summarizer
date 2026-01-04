@@ -58,7 +58,7 @@ export function useContentHandler(summaryMode: SummaryMode) {
       setGeneratedKeywords(keywords);
       setLastInputHash(currentHash);
       return result;
-    } catch (err) {
+    } catch {
       toast.error(t("failedToFetchData"));
       setLastInputHash(currentHash);
       return null;

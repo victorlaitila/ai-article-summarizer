@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 
 interface LanguageContextType {
   language: Language;
-  changeLanguage: (lang: Language, noToast?: boolean) => void;
+  changeLanguage: (lang: Language) => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -18,12 +18,10 @@ interface LanguageProviderProps {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, setLanguage] = useState<Language>('en'); 
 
-  const changeLanguage = async (lang: Language, noToast?: boolean) => {
+  const changeLanguage = async (lang: Language) => {
     await i18n.changeLanguage(lang);
     setLanguage(lang);
-    if (!noToast) {
-      toast.success(i18n.t("langChanged"));
-    }
+    toast.success(i18n.t("langChanged"));
   };
 
   const contextValue = {
