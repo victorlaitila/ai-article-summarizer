@@ -15,7 +15,7 @@
     "test": "vitest",
     "test:ci": "vitest --run --coverage",
     "validate": "npm run type-check && npm run lint:ci && npm run test:ci",
-    "predeploy": "npm test -- --run && npm run build",
+    "predeploy": "npm run validate && npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
