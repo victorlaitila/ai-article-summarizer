@@ -127,27 +127,31 @@ export default function MainSavedSummariesArea() {
           filteredAndSortedSummaries.map((summary) => (
             <Card key={summary.id} className="shadow-xl border bg-linear-to-br from-card to-accent/10">
               <CardHeader>
-                <div className="flex justify-between max-[520px]:flex-col max-[520px]:gap-2.5 items-center">
-                  <div className="flex items-center gap-3 ml-1">
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-4 sm:items-center">
+                  {/* Metadata row */}
+                  <div className="flex items-center gap-3 flex-wrap ml-2">
                     {/* Delete summary button */}
                     <button
                       title={t("delete")}
                       onClick={() => handleDeleteSummary(summary.id)}
                       disabled={USE_MOCK_API}
-                      className={!USE_MOCK_API ? "hover:text-red-700 cursor-pointer" : "text-gray-400"}
+                      className={!USE_MOCK_API ? "hover:text-red-700 cursor-pointer shrink-0" : "text-gray-400 shrink-0"}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
-                    <span aria-hidden className="h-4 w-px ml-1 bg-muted-foreground/30" />
+                    <span aria-hidden className="h-4 w-px bg-muted-foreground/30 shrink-0" />
                     <CardTitle className="text-muted-foreground">{formatDate(summary.created_at)}</CardTitle>
                     {summary.url && (
-                      <div className="flex items-center gap-3.5">
-                        <span aria-hidden className="h-4 w-px ml-1 bg-muted-foreground/30" />
-                        <span className="px-0.5 text-muted-foreground">{getSourceLabel(summary.url)}</span>
-                      </div>
+                      <>
+                        <span aria-hidden className="h-4 w-px bg-muted-foreground/30 shrink-0" />
+                        <span className="text-muted-foreground">{getSourceLabel(summary.url)}</span>
+                      </>
                     )}
                   </div>
-                  <SummaryButtonGroup summary={{ content: summary.content, url: summary.url }} />
+                  {/* Action buttons */}
+                  <div className="sm:shrink-0">
+                    <SummaryButtonGroup summary={{ content: summary.content, url: summary.url }} />
+                  </div>
                 </div>
               </CardHeader>
               <Summary summary={summary.content} summaryTitle={summary.title} summaryKeywords={summary.keywords} />
