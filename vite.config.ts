@@ -30,6 +30,8 @@ export default defineConfig({
         '**/*.test.ts',
         '**/*.test.tsx',
         'src/vite-env.d.ts',
+        'src/sentry.ts',
+        'src/components/ErrorBoundary.tsx',
         '*.config.*',
       ],
     },
