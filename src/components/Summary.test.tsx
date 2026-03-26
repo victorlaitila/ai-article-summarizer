@@ -40,17 +40,31 @@ const renderWithProviders = (ui: React.ReactElement) => {
 describe('Summary', () => {
   const mockSummary = 'This is a test summary of the article content.';
   const mockTitle = 'Test Article Title';
+  const mockSetShowArticle = vi.fn();
 
   it('renders the summary title and content', () => {
-    renderWithProviders(<Summary summary={mockSummary} summaryTitle={mockTitle} />);
+    renderWithProviders(
+      <Summary 
+        summary={mockSummary} 
+        summaryTitle={mockTitle} 
+        showArticle={false}
+        setShowArticle={mockSetShowArticle}
+      />
+    );
     expect(screen.getByText(mockTitle)).toBeInTheDocument();
     expect(screen.getByText(mockSummary)).toBeInTheDocument();
   });
 
   it('renders text-to-speech button', () => {
-    renderWithProviders(<Summary summary={mockSummary} />);
+    renderWithProviders(
+      <Summary 
+        summary={mockSummary}
+        showArticle={false}
+        setShowArticle={mockSetShowArticle}
+      />
+    );
 
-    const ttsButton = screen.getByRole('button');
+    const ttsButton = screen.getByRole('button', { name: /listen/i });
     expect(ttsButton).toBeInTheDocument();
   });
 

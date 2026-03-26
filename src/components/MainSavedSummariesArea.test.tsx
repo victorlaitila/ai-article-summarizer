@@ -182,11 +182,10 @@ describe('MainSavedSummariesArea', () => {
   it('displays summaries in descending order by default (newest first)', () => {
     renderComponent(testSummaries);
 
-    const summaryCards = screen.getAllByRole('heading', { level: 4 });
-    // Find the date headings (they have text-muted-foreground class)
-    const dateHeadings = summaryCards.filter(h => h.textContent?.includes('2025'));
+    // Find all date text elements (they're in spans in the footer)
+    const dateElements = screen.getAllByText(/Dec 28|Nov 14/);
     // The newest summary should be first (Dec 28)
-    expect(dateHeadings[0]).toHaveTextContent('Dec 28');
+    expect(dateElements[0]).toHaveTextContent('Dec 28');
   });
 
   it('toggles sort order when clicking sort button', async () => {
@@ -197,10 +196,9 @@ describe('MainSavedSummariesArea', () => {
     await user.click(sortButton);
 
     await waitFor(() => {
-      const summaryCards = screen.getAllByRole('heading', { level: 4 });
-      const dateHeadings = summaryCards.filter(h => h.textContent?.includes('2025'));
+      const dateElements = screen.getAllByText(/Dec 28|Nov 14/);
       // After toggling to ascending, oldest should be first (Nov 14)
-      expect(dateHeadings[0]).toHaveTextContent('Nov 14');
+      expect(dateElements[0]).toHaveTextContent('Nov 14');
     });
   });
 
