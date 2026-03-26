@@ -30,6 +30,7 @@ The app is live here: [AI Article Summarizer](https://victorlaitila.github.io/ai
 - **Radix UI** and **Headless UI** for accessible components
 - **i18next** for internationalization
 - **Wink-NLP** and **Compromise** for natural language processing
+- **Sentry** for error monitoring and performance tracking
 - **Vitest** and **Testing Library** for comprehensive testing
 - **ESLint** for code quality
 - **GitHub Pages** for deployment

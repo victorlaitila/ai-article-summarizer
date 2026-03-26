@@ -55,5 +55,9 @@
   "sortNewestFirst": "Äldst först",
   "sortOldestFirst": "Nyast först",
   "noMatchingResults": "Inga sammanfattningar matchar din sökning",
-  "disclaimerText": "Obs! Denna applikation är optimerad för engelskt innehåll. Sammanfattningar, nyckelord och tal kan vara mindre exakta för andra språk."
+  "disclaimerText": "Obs! Denna applikation är optimerad för engelskt innehåll. Sammanfattningar, nyckelord och tal kan vara mindre exakta för andra språk.",
+  "mockSummary": "Detta är en mocksammanfattning och artikel som visas i demonstrationssyfte. Den riktiga servern är inte aktiv i live-demon för att undvika distributionskostnader, men den fullständiga funktionaliteten hittas i <projectLink>backend-källkoden</projectLink>. En videodemo av den fullständiga funktionaliteten hittas <demoLink>här</demoLink>.",
+  "errorBoundaryTitle": "Något gick fel",
+  "errorBoundaryDescription": "Vi ber om ursäkt, ett oväntat fel uppstod. Felet har rapporterats och vi ska undersöka det.",
+  "errorBoundaryReload": "Ladda om sidan"
 }

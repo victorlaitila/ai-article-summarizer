@@ -4,17 +4,24 @@ import App from './App.tsx'
 import { LanguageProvider } from './contexts/LanguageContext.tsx';
 import { KeywordProvider } from './contexts/KeywordContext.tsx';
 import { SavedSummariesProvider } from './contexts/SavedSummariesContext.tsx';
+import ErrorBoundary from './components/ErrorBoundary.tsx';
+import { initSentry } from './sentry.ts';
 import './index.css'
 import "./i18n";
 
+// Initialize Sentry monitoring
+initSentry();
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <SavedSummariesProvider>
-      <LanguageProvider>
-        <KeywordProvider>
-          <App />
-        </KeywordProvider>
-      </LanguageProvider>
-    </SavedSummariesProvider>
+    <ErrorBoundary>
+      <SavedSummariesProvider>
+        <LanguageProvider>
+          <KeywordProvider>
+            <App />
+          </KeywordProvider>
+        </LanguageProvider>
+      </SavedSummariesProvider>
+    </ErrorBoundary>
   </StrictMode>,
 )

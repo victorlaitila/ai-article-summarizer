@@ -55,5 +55,9 @@
   "sortNewestFirst": "Vanhimmat ensin",
   "sortOldestFirst": "Uusimmat ensin",
   "noMatchingResults": "Mikään yhteenveto ei vastaa hakuasi",
-  "disclaimerText": "Huom: Tämä sovellus on optimoitu englanninkieliselle sisällölle. Yhteenvedot, avainsanat ja puheentuotto voivat olla vähemmän tarkkoja muilla kielillä."
+  "disclaimerText": "Huom: Tämä sovellus on optimoitu englanninkieliselle sisällölle. Yhteenvedot, avainsanat ja puheentuotto voivat olla vähemmän tarkkoja muilla kielillä.",
+  "mockSummary": "Tämä on esimerkkiyhteenveto ja artikkeli, joka näytetään esittelytarkoituksessa. Varsinainen palvelin ja backend-API eivät ole aktiivisia live-demossa käyttökustannusten välttämiseksi, mutta täysi toiminnallisuus on saatavilla <projectLink>backend-lähdekoodissa</projectLink>. Videodemo täydestä toiminnallisuudesta löytyy <demoLink>täältä</demoLink>.",
+  "errorBoundaryTitle": "Jokin meni pieleen",
+  "errorBoundaryDescription": "Pahoittelemme, tapahtui odottamaton virhe. Virhe on raportoitu ja tutkimme sitä.",
+  "errorBoundaryReload": "Lataa sivu uudelleen"
 }
