@@ -24,9 +24,13 @@ vi.mock('../hooks/useSpeechSynthesis', () => ({
   })),
 }));
 
-vi.mock('../constants', () => ({
-  USE_MOCK_API: false,
-}));
+vi.mock('../constants', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../constants')>();
+  return {
+    ...actual,
+    USE_MOCK_API: false,
+  };
+});
 
 Object.defineProperty(window, 'speechSynthesis', {
   writable: true,

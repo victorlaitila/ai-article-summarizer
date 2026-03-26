@@ -56,9 +56,13 @@ vi.mock('sonner', () => ({
   },
 }));
 
-vi.mock('../constants', () => ({
-  USE_MOCK_API: true,
-}));
+vi.mock('../constants', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../constants')>();
+  return {
+    ...actual,
+    USE_MOCK_API: true,
+  };
+});
 
 Object.defineProperty(window, 'speechSynthesis', {
   writable: true,
