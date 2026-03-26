@@ -8,11 +8,12 @@ export default function FullArticle({article}: {article: string}) {
 
   return (
     <CardContent>
-      <div className="bg-indigo-50 rounded-lg p-2.5 whitespace-pre-wrap">
-        <div>
+      <div className="bg-indigo-50 rounded-lg p-4 whitespace-pre-wrap">
+        <span>
           <FormattedText text={article} />
+          {" "}
           <TextToSpeechButton text={article} lang={bcpLang} />
-        </div>
+        </span>
       </div>
     </CardContent>
   )

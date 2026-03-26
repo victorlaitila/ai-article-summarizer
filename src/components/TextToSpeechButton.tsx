@@ -25,7 +25,7 @@ export default function TextToSpeechButton({ text, lang = "en-US" }: TextToSpeec
   return (
     <button
       onClick={handleClick}
-      className={`cursor-pointer relative top-0.75 left-2 rounded-full shadow-sm
+      className={`cursor-pointer inline-flex items-center justify-center align-middle ml-1.5 rounded-full shadow-sm
         ${isThisSpeaking
           ? "bg-red-100 hover:bg-red-200 text-red-600"
           : "bg-blue-100 hover:bg-blue-200 text-blue-700"

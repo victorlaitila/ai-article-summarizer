@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useState, useMemo } from "react";
-import { Card, CardHeader, CardTitle } from "./ui/Card";
+import { Card, CardHeader, CardTitle, CardFooter } from "./ui/Card";
 import Summary from "./Summary";
 import SummaryButtonGroup from "./SummaryButtonGroup";
 import { useSavedSummaries } from "../contexts/SavedSummariesContext";
 import NoSavedSummariesPlaceholder from "./NoSavedSummariesPlaceholder";
 import { ConfirmDialog } from "./ConfirmDialog";
-import { Trash2 } from "lucide-react";
+import { Trash2, Calendar, Globe } from "lucide-react";
 import { toast } from "sonner";
 import { USE_MOCK_API } from "../constants";
 import { normalizeKeywords } from "../utils/keywords";
@@ -105,7 +105,7 @@ export default function MainSavedSummariesArea() {
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="space-y-4">
+      <div className="space-y-6">
         {/* Search and Sort Controls */}
         {savedSummaries.length > 0 && (
           <SearchAndSort
@@ -125,36 +125,53 @@ export default function MainSavedSummariesArea() {
           <NoSavedSummariesPlaceholder />
         ) : (
           filteredAndSortedSummaries.map((summary) => (
-            <Card key={summary.id} className="shadow-xl border bg-linear-to-br from-card to-accent/10">
-              <CardHeader>
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-4 sm:items-center">
-                  {/* Metadata row */}
-                  <div className="flex items-center gap-3 flex-wrap ml-2">
-                    {/* Delete summary button */}
-                    <button
-                      title={t("delete")}
-                      onClick={() => handleDeleteSummary(summary.id)}
-                      disabled={USE_MOCK_API}
-                      className={!USE_MOCK_API ? "hover:text-red-700 cursor-pointer shrink-0" : "text-gray-400 shrink-0"}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                    <span aria-hidden className="h-4 w-px bg-muted-foreground/30 shrink-0" />
-                    <CardTitle className="text-muted-foreground">{formatDate(summary.created_at)}</CardTitle>
-                    {summary.url && (
-                      <>
-                        <span aria-hidden className="h-4 w-px bg-muted-foreground/30 shrink-0" />
-                        <span className="text-muted-foreground">{getSourceLabel(summary.url)}</span>
-                      </>
-                    )}
-                  </div>
-                  {/* Action buttons */}
-                  <div className="sm:shrink-0">
-                    <SummaryButtonGroup summary={{ content: summary.content, url: summary.url }} />
-                  </div>
-                </div>
+            <Card key={summary.id} className="shadow-xl border bg-linear-to-br from-card to-accent/10 overflow-hidden gap-2">
+              {/* Title Header */}
+              <CardHeader className="pb-0">
+                {summary.title && (
+                  <CardTitle className="text-lg font-semibold text-foreground leading-snug">
+                    {summary.title}
+                  </CardTitle>
+                )}
               </CardHeader>
-              <Summary summary={summary.content} summaryTitle={summary.title} summaryKeywords={summary.keywords} />
+              
+              {/* Summary Content */}
+              <Summary summary={summary.content} summaryKeywords={summary.keywords} />
+              
+              {/* Footer with metadata and actions */}
+              <CardFooter className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-border/50">
+                {/* Metadata badges */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {formatDate(summary.created_at)}
+                  </span>
+                  {summary.url && (
+                    <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Globe className="w-3.5 h-3.5" />
+                      {getSourceLabel(summary.url)}
+                    </span>
+                  )}
+                </div>
+                
+                {/* Action buttons */}
+                <div className="flex items-center gap-2">
+                  <SummaryButtonGroup summary={{ content: summary.content, url: summary.url }} />
+                  <span aria-hidden className="h-5 w-px bg-border mx-1 hidden sm:block" />
+                  <button
+                    title={t("delete")}
+                    onClick={() => handleDeleteSummary(summary.id)}
+                    disabled={USE_MOCK_API}
+                    className={`p-2 rounded-md transition-colors ${
+                      !USE_MOCK_API 
+                        ? "hover:bg-red-50 hover:text-red-600 cursor-pointer text-muted-foreground" 
+                        : "text-gray-300 cursor-not-allowed"
+                    }`}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </CardFooter>
             </Card>
           ))
         )}

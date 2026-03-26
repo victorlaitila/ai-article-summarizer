@@ -32,8 +32,8 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
   const keywordsToDisplay = normalizeKeywords(summaryKeywords && summaryKeywords.length > 0 ? summaryKeywords : (generatedKeywords ?? []));
 
   return (
-    <CardContent>
-      <div className="bg-indigo-50 rounded-lg p-2.5 mt-1 whitespace-pre-wrap">
+    <CardContent className={isSavedSummary ? "pt-2" : ""}>
+      <div className={`rounded-xl p-4 whitespace-pre-wrap ${isSavedSummary ? "bg-slate-50/80" : "bg-indigo-50"}`}>
         {/* Disclaimer text for when application is used with mock server */}
         {USE_MOCK_API && (
           <>
@@ -62,37 +62,42 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
           </>
         )}
         <div>
-          {summaryTitle && (
+          {/* Only show title inside Summary for non-saved summaries (main summarizer view) */}
+          {summaryTitle && !isSavedSummary && (
             <CardTitle className="text-l font-semibold mb-4 mt-1">{summaryTitle}</CardTitle>
           )}
-          <FormattedText text={summary} />
-          <TextToSpeechButton text={summary} lang={bcpLang} />
+          <span>
+            <FormattedText text={summary} />
+            {!isSavedSummary && <>{" "}<TextToSpeechButton text={summary} lang={bcpLang} /></>}
+          </span>
         </div>
 
         {/* Extracted keywords */}
-        {keywordsToDisplay.length > 0 && (<div className="flex flex-wrap gap-2 mt-5 mb-1">
-          {keywordsToDisplay.map((word, index) => {
-            const style = keywordButtonStyles[index % keywordButtonStyles.length];
-            const isActive = selectedKeywords.includes(word);
-            return (
-              <button
-                key={word + index}
-                onClick={() => {
-                  if (isSavedSummary) return;
-                  toggleKeyword(word)
-                }}
-                className={[
-                  "px-2 py-1 rounded-full text-xs font-medium",
-                  !isSavedSummary && `cursor-pointer hover:shadow-md ${style.bg} ${style.text} ${style.hoverBg}`,
-                  isSavedSummary && "bg-sky-200",
-                  isActive && `ring-2 ring-offset-1 ${style.ring}`
-                ].join(" ")}
-              >
-                {word}
-              </button>
-            );
-          })}
-        </div>)}
+        {keywordsToDisplay.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-200/60">
+            {keywordsToDisplay.map((word, index) => {
+              const style = keywordButtonStyles[index % keywordButtonStyles.length];
+              const isActive = selectedKeywords.includes(word);
+              return (
+                <span
+                  key={word + index}
+                  onClick={() => {
+                    if (isSavedSummary) return;
+                    toggleKeyword(word)
+                  }}
+                  className={[
+                    "px-2.5 py-1 rounded-full text-xs font-medium transition-colors",
+                    !isSavedSummary && `cursor-pointer ${style.bg} ${style.text} ${style.hoverBg}`,
+                    isSavedSummary && `${style.bg} ${style.text}`,
+                    isActive && `ring-2 ring-offset-1 ${style.ring}`
+                  ].join(" ")}
+                >
+                  {word}
+                </span>
+              );
+            })}
+          </div>
+        )}
       </div>
       {!isSavedSummary && (
         <button
