@@ -60,7 +60,7 @@ export function extractKeywords(text: string, maxKeywords = 5): string[] {
  * @param kw - The input keywords to normalize.
  * @returns An array of normalized keywords.
  */
-export function normalizeKeywords(kw: any): string[] {
+export function normalizeKeywords(kw: string | string[] | null | undefined): string[] {
   if (!kw) return [];
   if (Array.isArray(kw)) return kw.map(String).filter(Boolean);
   if (typeof kw === "string") {

@@ -4,7 +4,7 @@ import TextToSpeechButton from "./TextToSpeechButton";
 import { detectBCPLang } from "../utils/language";
 import { useKeywords } from "../contexts/KeywordContext";
 import { FormattedText } from "./FormattedText";
-import { USE_MOCK_API } from "../constants";
+import { USE_MOCK_API, KEYWORD_STYLES } from "../constants";
 import { normalizeKeywords } from "../utils/keywords";
 
 interface SummaryProps {
@@ -14,14 +14,6 @@ interface SummaryProps {
   showArticle?: boolean;
   setShowArticle?: (show: boolean) => void;
 }
-
-const keywordButtonStyles = [
-  { bg: "bg-yellow-200", hoverBg: "hover:bg-yellow-300", text: "text-yellow-900", ring: "ring-yellow-400", ringRgb: "246,224,94" },
-  { bg: "bg-green-200",  hoverBg: "hover:bg-green-300",  text: "text-green-900",  ring: "ring-green-400",  ringRgb: "104,211,145" },
-  { bg: "bg-pink-200",   hoverBg: "hover:bg-pink-300",   text: "text-pink-900",   ring: "ring-pink-400",   ringRgb: "244,114,182" },
-  { bg: "bg-orange-200", hoverBg: "hover:bg-orange-300", text: "text-orange-900", ring: "ring-orange-400", ringRgb: "251,146,60" },
-  { bg: "bg-purple-200", hoverBg: "hover:bg-purple-300", text: "text-purple-900", ring: "ring-purple-400", ringRgb: "159,122,234" },
-];
 
 export default function Summary({summary, summaryTitle, summaryKeywords, showArticle, setShowArticle}: SummaryProps) {
   const bcpLang = detectBCPLang(summary);
@@ -74,26 +66,36 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
 
         {/* Extracted keywords */}
         {keywordsToDisplay.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-200/60">
+          <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-200/60" role="group" aria-label="Keywords">
             {keywordsToDisplay.map((word, index) => {
-              const style = keywordButtonStyles[index % keywordButtonStyles.length];
+              const style = KEYWORD_STYLES[index % KEYWORD_STYLES.length];
               const isActive = selectedKeywords.includes(word);
+              
+              if (isSavedSummary) {
+                return (
+                  <span
+                    key={word + index}
+                    className={`px-2.5 py-1 rounded-full text-xs font-medium ${style.bg} ${style.text}`}
+                  >
+                    {word}
+                  </span>
+                );
+              }
+              
               return (
-                <span
+                <button
                   key={word + index}
-                  onClick={() => {
-                    if (isSavedSummary) return;
-                    toggleKeyword(word)
-                  }}
+                  type="button"
+                  onClick={() => toggleKeyword(word)}
+                  aria-pressed={isActive}
                   className={[
-                    "px-2.5 py-1 rounded-full text-xs font-medium transition-colors",
-                    !isSavedSummary && `cursor-pointer ${style.bg} ${style.text} ${style.hoverBg}`,
-                    isSavedSummary && `${style.bg} ${style.text}`,
+                    "px-2.5 py-1 rounded-full text-xs font-medium transition-colors cursor-pointer",
+                    `${style.bg} ${style.text} ${style.hoverBg}`,
                     isActive && `ring-2 ring-offset-1 ${style.ring}`
                   ].join(" ")}
                 >
                   {word}
-                </span>
+                </button>
               );
             })}
           </div>
@@ -101,7 +103,9 @@ export default function Summary({summary, summaryTitle, summaryKeywords, showArt
       </div>
       {!isSavedSummary && (
         <button
+          type="button"
           onClick={() => setShowArticle(!showArticle)}
+          aria-expanded={showArticle}
           className="text-blue-600 font-medium hover:underline mt-4 cursor-pointer"
         >
           {showArticle ? t("hideFullArticle") : t("showFullArticle")}

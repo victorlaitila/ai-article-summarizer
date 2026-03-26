@@ -1,12 +1,5 @@
 import { useKeywords } from "../contexts/KeywordContext";
-
-const HIGHLIGHT_COLORS = [
-  "bg-yellow-300",
-  "bg-green-300",
-  "bg-pink-300",
-  "bg-orange-300",
-  "bg-purple-300",
-];
+import { KEYWORD_STYLES } from "../constants";
 
 // Formats text by highlighting selected keywords in different colors.
 export function FormattedText({text}: {text: string}) {
@@ -19,7 +12,7 @@ export function FormattedText({text}: {text: string}) {
   // Create a consistent map of keyword -> color based on generatedKeywords order
   const keywordColorMap: Record<string, string> = {};
   generatedKeywords.forEach((keyword, index) => {
-    keywordColorMap[keyword.toLowerCase()] = HIGHLIGHT_COLORS[index % HIGHLIGHT_COLORS.length];
+    keywordColorMap[keyword.toLowerCase()] = KEYWORD_STYLES[index % KEYWORD_STYLES.length].highlight;
   });
 
   // Escape regex special characters in keywords

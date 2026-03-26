@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Button } from "./ui/Button";
 import { useTranslation } from "react-i18next";
 import { Upload, X } from "lucide-react";
+import { FILE_UPLOAD_CONFIG } from "../constants";
 
 interface FileUploaderProps {
   file: File | undefined;
@@ -60,11 +61,12 @@ export default function FileUploader({ file, setFile, disabled }: FileUploaderPr
 
     const droppedFile = e.dataTransfer.files?.[0];
     if (droppedFile) {
-      // Validate file type
-      const validTypes = ['.pdf', '.txt', 'application/pdf', 'text/plain'];
+      // Validate file type using centralized config
       const fileExtension = '.' + droppedFile.name.split('.').pop()?.toLowerCase();
+      const isValidExtension = FILE_UPLOAD_CONFIG.ALLOWED_EXTENSIONS.includes(fileExtension);
+      const isValidMime = FILE_UPLOAD_CONFIG.ALLOWED_MIME_TYPES.includes(droppedFile.type);
       
-      if (validTypes.includes(fileExtension) || validTypes.includes(droppedFile.type)) {
+      if (isValidExtension || isValidMime) {
         setFile(droppedFile);
       }
     }
@@ -89,25 +91,27 @@ export default function FileUploader({ file, setFile, disabled }: FileUploaderPr
           type="button"
           disabled={disabled}
           onClick={handleClick}
+          aria-label={t("uploadFile")}
           className={`flex flex-col items-center justify-center w-full rounded-lg border border-dashed transition-colors py-6 cursor-pointer ${
             isDragging 
               ? 'border-blue-400 bg-blue-50' 
               : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
           }`}
         >
-          <Upload className={`w-4 h-4 mb-1 ${isDragging ? 'text-blue-500' : 'text-gray-500'}`} />
+          <Upload aria-hidden="true" className={`w-4 h-4 mb-1 ${isDragging ? 'text-blue-500' : 'text-gray-500'}`} />
           <span className={`text-sm font-medium ${isDragging ? 'text-blue-600' : 'text-gray-600'}`}>
             {isDragging ? t("dropFileHere") : t("uploadFile")}
           </span>
           <span className="text-xs text-gray-400">
-            (.pdf, .txt)
+            ({FILE_UPLOAD_CONFIG.ALLOWED_EXTENSIONS.join(", ")})
           </span>
           <input
             ref={fileInputRef}
             type="file"
-            accept=".pdf,.txt"
+            accept={FILE_UPLOAD_CONFIG.ALLOWED_EXTENSIONS.join(",")}
             onChange={handleFileChange}
             className="hidden"
+            aria-label={t("uploadFile")}
           />
         </button>
       ) : (
@@ -119,9 +123,10 @@ export default function FileUploader({ file, setFile, disabled }: FileUploaderPr
             size="sm"
             disabled={disabled}
             onClick={handleReset}
+            aria-label={t("removeFile")}
             className="text-red-500 hover:text-red-600 hover:bg-transparent p-1"
           >
-            <X className="w-4 h-4" />
+            <X aria-hidden="true" className="w-4 h-4" />
           </Button>
         </div>
       )}

@@ -60,7 +60,7 @@ export function useSummaryActions(summary: TempSummary) {
         await handleCopy();
       }
     } catch (err) {
-      if ((err as any)?.name === "AbortError") {
+      if (err instanceof Error && err.name === "AbortError") {
         return;
       }
       console.error("Share failed", err);
