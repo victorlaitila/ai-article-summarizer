@@ -56,7 +56,7 @@
   "sortOldestFirst": "Newest first",
   "noMatchingResults": "No summaries match your search",
   "disclaimerText": "Note: This application is optimized for English content. Summaries, keywords, and speech output may be less accurate for other languages.",
-  "mockSummary": "This is a mock summary and article shown for demonstration purposes. The real server and backend API is not active in the live demo to avoid deployment costs, but the full functionality is available in the <projectLink>backend source code</projectLink>. A video demo of the full functionality is available <demoLink>here</demoLink>.",
+  "mockSummary": "This is a mock summary and article shown for demonstration purposes. The real server is not active in the live demo to avoid deployment costs, but the full functionality is available in the <projectLink>backend source code</projectLink>. A video demo of the full functionality is available <demoLink>here</demoLink>.",
   "errorBoundaryTitle": "Something went wrong",
   "errorBoundaryDescription": "We're sorry, an unexpected error occurred. The error has been reported and we'll look into it.",
   "errorBoundaryReload": "Reload Page"
